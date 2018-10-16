@@ -115,7 +115,7 @@ public:
     const QString&  getLabel( ) const { return _label; }
 protected:
     QString         _label{""};
-signals:
+Q_SIGNALS:
     void            labelChanged( );
 
 public:
@@ -126,7 +126,7 @@ public:
     void            setWeight( qreal weight );
 protected:
     qreal           _weight{1.0};
-signals:
+Q_SIGNALS:
     void            weightChanged( );
     //@}
     //-------------------------------------------------------------------------

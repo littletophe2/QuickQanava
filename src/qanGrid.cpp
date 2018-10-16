@@ -56,7 +56,7 @@ void    Grid::setThickColor( QColor thickColor ) noexcept
 {
     if ( thickColor != _thickColor ) {
         _thickColor = thickColor;
-        emit thickColorChanged();
+        Q_EMIT thickColorChanged();
     }
 }
 
@@ -68,7 +68,7 @@ void    Grid::setGridWidth( qreal gridWidth ) noexcept
     }
     if ( !qFuzzyCompare(1.0 + gridWidth, 1.0 + _gridWidth) ) {
         _gridWidth = gridWidth;
-        emit gridWidthChanged();
+        Q_EMIT gridWidthChanged();
     }
 }
 
@@ -80,7 +80,7 @@ void    Grid::setGridScale( qreal gridScale ) noexcept
     }
     if ( !qFuzzyCompare(1.0 + gridScale, 1.0 + _gridScale) ) {
         _gridScale = gridScale;
-        emit gridScaleChanged();
+        Q_EMIT gridScaleChanged();
         updateGrid();
     }
 }
@@ -93,7 +93,7 @@ void    Grid::setGridMajor( int gridMajor ) noexcept
     }
     if ( gridMajor != _gridMajor ) {
         _gridMajor = gridMajor;
-        emit gridMajorChanged();
+        Q_EMIT gridMajorChanged();
         updateGrid();
     }
 }
@@ -132,7 +132,7 @@ void    OrthoGrid::setGeometryComponent( QQmlComponent* geometryComponent ) noex
             _geometryComponent.clear();
         }
         _geometryComponent = geometryComponent;
-        emit geometryComponentChanged();
+        Q_EMIT geometryComponentChanged();
     }
 }
 
@@ -290,7 +290,7 @@ void    LineGrid::setGridShape( QObject* gridShape ) noexcept
 {
     if ( _gridShape != gridShape ) {
         _gridShape = gridShape;
-        emit gridShapeChanged();
+        Q_EMIT gridShapeChanged();
     }
 }
 
@@ -347,7 +347,7 @@ bool    LineGrid::updateGrid( const QRectF& viewRect,
             const auto point = qobject_cast<QObject*>(getGeometryComponent()->create(gridContext));
             if ( point != nullptr ) {
                 point->setParent( getGridShape() );
-                emit addLine(point);
+                Q_EMIT addLine(point);
                 _lines[p] = point;
             }
         }

@@ -88,7 +88,7 @@ public:
     Q_PROPERTY( QQuickItem* handler READ getHandler WRITE setHandler NOTIFY handlerChanged FINAL )
     void                    setHandler( QQuickItem* handler ) noexcept;
     QQuickItem*             getHandler( ) const noexcept;
-signals:
+Q_SIGNALS:
     void                    handlerChanged();
 private:
     QPointer< QQuickItem >  _handler{ nullptr };
@@ -98,14 +98,14 @@ public:
     Q_PROPERTY( QQuickItem* target READ getTarget WRITE setTarget NOTIFY targetChanged FINAL )
     void        setTarget( QQuickItem* target );
     QQuickItem* getTarget( ) const noexcept { return _target.data(); }
-signals:
+Q_SIGNALS:
     void        targetChanged();
 private:
     QPointer< QQuickItem >  _target{ nullptr };
 private:
     void        configureHandler(QQuickItem& handler) noexcept;
     void        configureTarget(QQuickItem& target) noexcept;
-private slots:
+private Q_SLOTS:
     void        onTargetXChanged();
     void        onTargetYChanged();
     void        onTargetWidthChanged();
@@ -114,9 +114,9 @@ private slots:
 public:
     //! When a resizer is used on an item that is _inside_ a Flickable QML component, bind the flickable to this property to automatically disable flicking during \c target resizing.
     Q_PROPERTY( QQuickItem* flickable READ getFlickable WRITE setFlickable NOTIFY flickableChanged FINAL )
-    void        setFlickable( QQuickItem* flickable ) { _flickable = flickable; emit flickableChanged(); }
+    void        setFlickable( QQuickItem* flickable ) { _flickable = flickable; Q_EMIT flickableChanged(); }
     QQuickItem* getFlickable( ) const { return _flickable.data(); }
-signals:
+Q_SIGNALS:
     void        flickableChanged();
 private:
     QPointer< QQuickItem >  _flickable{ nullptr };
@@ -130,7 +130,7 @@ public:
     Q_PROPERTY( QSizeF handlerSize READ getHandlerSize WRITE setHandlerSize NOTIFY handlerSizeChanged FINAL )
     void        setHandlerSize( const QSizeF& handlerSize );
     QSizeF      getHandlerSize( ) const { return _handlerSize; }
-signals:
+Q_SIGNALS:
     void        handlerSizeChanged();
 private:
     //! Internally used to force handler width value despite previous value set.
@@ -146,7 +146,7 @@ public:
     Q_PROPERTY( QColor handlerColor READ getHandlerColor WRITE setHandlerColor NOTIFY handlerColorChanged FINAL )
     void        setHandlerColor( QColor handlerColor );
     QColor      getHandlerColor( ) const { return _handlerColor; }
-signals:
+Q_SIGNALS:
     void        handlerColorChanged();
 private:
     QColor      _handlerColor{ Qt::black };
@@ -157,7 +157,7 @@ public:
     Q_PROPERTY( qreal handlerRadius READ getHandlerRadius WRITE setHandlerRadius NOTIFY handlerRadiusChanged FINAL )
     void        setHandlerRadius( qreal handlerRadius );
     qreal       getHandlerRadius( ) const { return _handlerRadius; }
-signals:
+Q_SIGNALS:
     void        handlerRadiusChanged();
 private:
     //! Internally used to force handler width value despite previous value set.
@@ -170,7 +170,7 @@ public:
     Q_PROPERTY( qreal handlerWidth READ getHandlerWidth WRITE setHandlerWidth NOTIFY handlerWidthChanged FINAL )
     void        setHandlerWidth( qreal handlerWidth );
     qreal       getHandlerWidth( ) const { return _handlerWidth; }
-signals:
+Q_SIGNALS:
     void        handlerWidthChanged();
 private:
     //! Internally used to force handler width value despite previous value set.
@@ -184,7 +184,7 @@ public:
     void        setMinimumTargetSize( QSizeF minimumTargetSize );
     //! \sa minimumTargetSize
     QSizeF      getMinimumTargetSize( ) const { return _minimumTargetSize; }
-signals:
+Q_SIGNALS:
     //! \sa minimumTargetSize
     void        minimumTargetSizeChanged();
 private:
@@ -196,7 +196,7 @@ public:
     Q_PROPERTY( bool autoHideHandler READ getAutoHideHandler WRITE setAutoHideHandler NOTIFY autoHideHandlerChanged FINAL )
     void        setAutoHideHandler( bool autoHideHandler );
     bool        getAutoHideHandler( ) const { return _autoHideHandler; }
-signals:
+Q_SIGNALS:
     void        autoHideHandlerChanged();
 private:
     bool        _autoHideHandler{ false };
@@ -206,7 +206,7 @@ public:
     Q_PROPERTY( bool preserveRatio READ getPreserveRatio WRITE setPreserveRatio NOTIFY preserveRatioChanged FINAL )
     void        setPreserveRatio(bool preserveRatio) noexcept;
     bool        getPreserveRatio() const noexcept { return _preserveRatio; }
-signals:
+Q_SIGNALS:
     void        preserveRatioChanged();
 private:
     bool        _preserveRatio{false};
@@ -216,7 +216,7 @@ public:
     Q_PROPERTY( qreal ratio READ getRatio WRITE setRatio NOTIFY ratioChanged FINAL )
     void        setRatio(qreal ratio) noexcept;
     qreal       getRatio() const noexcept { return _ratio; }
-signals:
+Q_SIGNALS:
     void        ratioChanged();
 private:
     qreal       _ratio{1.0};
@@ -225,7 +225,7 @@ private:
 
     /*! \name Resizer Management *///------------------------------------------
     //@{
-signals:
+Q_SIGNALS:
     //! Emmited immediately before a resize operation start, \c targetSize is target item current size.
     void    resizeStart(QSizeF targetSize );
     //! Emmited immediately after a resize operation, \c targetSize is target item size after resize.

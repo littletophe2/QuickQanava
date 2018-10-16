@@ -48,8 +48,8 @@ private:
 public:
     Q_PROPERTY( QString  label READ getLabel WRITE setLabel NOTIFY labelChanged )
     QString     getLabel( ) const { return _label; }
-    void        setLabel( QString label ) { _label = label; emit labelChanged( ); }
-signals:
+    void        setLabel( QString label ) { _label = label; Q_EMIT labelChanged( ); }
+Q_SIGNALS:
     void        labelChanged( );
 protected:
     QString      _label{""};
@@ -57,8 +57,8 @@ protected:
 public:
     Q_PROPERTY( double  number READ getNumber WRITE setNumber NOTIFY numberChanged )
     double      getNumber( ) const { return _number; }
-    void        setNumber( double number ) { _number = number; emit numberChanged( ); }
-signals:
+    void        setNumber( double number ) { _number = number; Q_EMIT numberChanged( ); }
+Q_SIGNALS:
     void        numberChanged( );
 protected:
     double      _number{42.0};
@@ -79,10 +79,10 @@ public:
 public:
     Q_PROPERTY( qreal dummyReal READ getDummyReal WRITE setDummyReal NOTIFY dummyRealChanged )
     qreal       getDummyReal( ) const { return _dummyReal; }
-    void        setDummyReal( qreal dummyReal ) { _dummyReal = dummyReal; emit dummyRealChanged(); }
+    void        setDummyReal( qreal dummyReal ) { _dummyReal = dummyReal; Q_EMIT dummyRealChanged(); }
 protected:
     qreal       _dummyReal{ 42. };
-signals:
+Q_SIGNALS:
     void        dummyRealChanged( );
 };
 
@@ -98,10 +98,10 @@ public:
 public:
     Q_PROPERTY( qreal dummyReal READ getDummyReal WRITE setDummyReal NOTIFY dummyRealChanged )
     qreal       getDummyReal( ) const { return _dummyReal; }
-    void        setDummyReal( qreal dummyReal ) { _dummyReal = dummyReal; emit dummyRealChanged(); }
+    void        setDummyReal( qreal dummyReal ) { _dummyReal = dummyReal; Q_EMIT dummyRealChanged(); }
 protected:
     qreal       _dummyReal{ 43. };
-signals:
+Q_SIGNALS:
     void        dummyRealChanged( );
 };
 

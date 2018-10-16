@@ -65,7 +65,7 @@ auto    Connector::setGraph(qan::Graph* graph) noexcept -> void
         }
         if ( _graph == nullptr )
             setVisible( false );
-        emit graphChanged();
+        Q_EMIT graphChanged();
     }
 }
 
@@ -147,10 +147,10 @@ void    Connector::connectorReleased(QQuickItem* target) noexcept
                     _graph->bindEdgeDestination(*createdEdge, *dstPortItem );   // Bind created edge to a destination port
             }
         } else
-            emit requestEdgeCreation(srcNode, dstNode);
+            Q_EMIT requestEdgeCreation(srcNode, dstNode);
     }
     if ( createdEdge ) // Notify user of the edge creation
-        emit edgeInserted( createdEdge );
+        Q_EMIT edgeInserted( createdEdge );
 }
 
 void    Connector::connectorPressed() noexcept
@@ -171,7 +171,7 @@ auto    Connector::setCreateDefaultEdge(bool createDefaultEdge) noexcept -> void
 {
     if ( createDefaultEdge != _createDefaultEdge ) {
         _createDefaultEdge = createDefaultEdge;
-        emit createDefaultEdgeChanged();
+        Q_EMIT createDefaultEdgeChanged();
     }
 }
 
@@ -187,7 +187,7 @@ auto    Connector::setConnectorItem(QQuickItem* connectorItem) noexcept -> void
             _connectorItem->setVisible( isVisible() &&
                                         _sourceNode != nullptr );
         }
-        emit connectorItemChanged();
+        Q_EMIT connectorItemChanged();
     }
 }
 
@@ -217,14 +217,14 @@ auto    Connector::setEdgeComponent(QQmlComponent* edgeComponent) noexcept -> vo
                         _edgeItem->setSourceItem(_sourceNode->getItem());
                         _edgeItem->setDestinationItem(this);
                     }
-                    emit edgeItemChanged();
+                    Q_EMIT edgeItemChanged();
                 } else {
                     qWarning() << "qan::Connector::setEdgeComponent(): Error while creating edge:";
                     qWarning() << "\t" << _edgeComponent->errors();
                 }
             }
         }
-        emit edgeComponentChanged();
+        Q_EMIT edgeComponentChanged();
     }
 }
 
@@ -273,7 +273,7 @@ void    Connector::setSourcePort( qan::PortItem* sourcePort ) noexcept
              _sourceNode == nullptr )
             setVisible(false);
 
-        emit sourcePortChanged();
+        Q_EMIT sourcePortChanged();
     }
 }
 
@@ -326,7 +326,7 @@ void    Connector::setSourceNode( qan::Node* sourceNode ) noexcept
                      this,       &Connector::sourceNodeDestroyed );
             setVisible(true);
         }
-        emit sourceNodeChanged();
+        Q_EMIT sourceNodeChanged();
     }
 }
 

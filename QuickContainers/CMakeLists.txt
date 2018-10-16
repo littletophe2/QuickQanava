@@ -49,7 +49,7 @@ target_compile_features(QuickContainers
 
 install(FILES
     ${qcm_header_files}
-    DESTINATION include/quickcontainers
+    DESTINATION include
     )
 
 install(TARGETS QuickContainers

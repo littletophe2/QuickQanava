@@ -84,7 +84,7 @@ public:
 protected:
     Type            _type{Type::Percentage};
 
-public slots:
+public Q_SLOTS:
     virtual void    inNodeOutputChanged();
 
 public:
@@ -93,7 +93,7 @@ public:
     void            setOutput(QVariant output) noexcept;
 protected:
     QVariant        _output;
-signals:
+Q_SIGNALS:
     void            outputChanged();
 };
 
@@ -126,10 +126,10 @@ public:
     void                setOperation(Operation operation) noexcept;
 private:
     Operation           _operation{Operation::Multiply};
-signals:
+Q_SIGNALS:
     void                operationChanged();
 
-protected slots:
+protected Q_SLOTS:
     void                inNodeOutputChanged();
 };
 
@@ -161,7 +161,7 @@ public:
     void            setSource(QUrl source) noexcept;
 private:
     QUrl            _source;
-signals:
+Q_SIGNALS:
     void            sourceChanged();
 public:
     Q_PROPERTY(QColor tintColor READ getTintColor WRITE setTintColor NOTIFY tintColorChanged)
@@ -169,10 +169,10 @@ public:
     void            setTintColor(QColor tintColor) noexcept;
 private:
     QColor          _tintColor{Qt::transparent};
-signals:
+Q_SIGNALS:
     void            tintColorChanged();
 
-protected slots:
+protected Q_SLOTS:
     void            inNodeOutputChanged();
 };
 

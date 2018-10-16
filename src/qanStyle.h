@@ -76,10 +76,10 @@ public:
     //@{
 public:
     Q_PROPERTY( QString name READ getName WRITE setName NOTIFY nameChanged FINAL )
-    inline  void        setName( QString name ) noexcept { if ( name != _name ) { _name = name; emit nameChanged( ); } }
+    inline  void        setName( QString name ) noexcept { if ( name != _name ) { _name = name; Q_EMIT nameChanged( ); } }
     inline  QString     getName() noexcept { return _name; }
     inline  QString     getName() const noexcept { return _name; }
-signals:
+Q_SIGNALS:
     void        nameChanged( );
 private:
     QString     _name{ QStringLiteral("") };
@@ -121,7 +121,7 @@ public:
 protected:
     //! \copydoc backRadius
     qreal           _backRadius{4.};
-signals:
+Q_SIGNALS:
     //! \copydoc backRadius
     void            backRadiusChanged();
 
@@ -142,7 +142,7 @@ public:
 protected:
     //! \copydoc backOpacity
     qreal           _backOpacity{0.80};
-signals:
+Q_SIGNALS:
     //! \copydoc backOpacity
     void            backOpacityChanged();
 
@@ -171,7 +171,7 @@ public:
 protected:
     //! \copydoc FillType
     FillType            _fillType{FillType::FillSolid};
-signals:
+Q_SIGNALS:
     //! \copydoc FillType
     void                fillTypeChanged();
 
@@ -182,7 +182,7 @@ public:
     const QColor&   getBackColor() const noexcept { return _backColor; }
 protected:
     QColor          _backColor{Qt::white};
-signals:
+Q_SIGNALS:
     void            backColorChanged();
 
 public:
@@ -195,7 +195,7 @@ public:
     const QColor&   getBaseColor() const noexcept { return _baseColor; }
 protected:
     QColor          _baseColor{Qt::white};
-signals:
+Q_SIGNALS:
     void            baseColorChanged();
 
 public:
@@ -204,7 +204,7 @@ public:
     const QColor&   getBorderColor() const noexcept { return _borderColor; }
 protected:
     QColor          _borderColor = QColor(Qt::black);
-signals:
+Q_SIGNALS:
     void            borderColorChanged();
 
 public:
@@ -213,7 +213,7 @@ public:
     inline qreal    getBorderWidth() const noexcept { return _borderWidth; }
 protected:
     qreal           _borderWidth = 1.0;
-signals:
+Q_SIGNALS:
     void            borderWidthChanged();
 
 public:
@@ -231,7 +231,7 @@ public:
     inline EffectType   getEffectType() const noexcept { return _effectType; }
 protected:
     EffectType          _effectType{EffectType::EffectShadow};
-signals:
+Q_SIGNALS:
     void                effectTypeChanged();
 
 public:
@@ -240,7 +240,7 @@ public:
     inline bool     getEffectEnabled() const noexcept { return _effectEnabled; }
 protected:
     bool            _effectEnabled = true;
-signals:
+Q_SIGNALS:
     void            effectEnabledChanged();
 
 public:
@@ -249,7 +249,7 @@ public:
     inline QColor   getEffectColor() const noexcept { return _effectColor; }
 protected:
     QColor          _effectColor = QColor{ 0, 0, 0, 127 };
-signals:
+Q_SIGNALS:
     void            effectColorChanged();
 
 public:
@@ -258,7 +258,7 @@ public:
     inline qreal    getEffectRadius() const noexcept { return _effectRadius; }
 protected:
     qreal           _effectRadius{3.};
-signals:
+Q_SIGNALS:
     void            effectRadiusChanged();
 
 public:
@@ -271,7 +271,7 @@ public:
     inline qreal    getEffectOffset() const noexcept { return _effectOffset; }
 protected:
     qreal           _effectOffset{3.};
-signals:
+Q_SIGNALS:
     void            effectOffsetChanged();
 
 public:
@@ -285,7 +285,7 @@ public:
 protected:
     //! \copydoc fontPointSize
     int             _fontPointSize{-1};
-signals:
+Q_SIGNALS:
     //! \copydoc fontPointSize
     void            fontPointSizeChanged();
 
@@ -300,7 +300,7 @@ public:
 protected:
     //! \copydoc fontBold
     bool            _fontBold{false};
-signals:
+Q_SIGNALS:
     //! \copydoc fontBold
     void            fontBoldChanged();
     //@}
@@ -324,7 +324,7 @@ public:
 
     /*! \name Properties Management *///---------------------------------------
     //@{
-signals:
+Q_SIGNALS:
     void            styleModified();
 
 public:
@@ -362,7 +362,7 @@ public:
     inline LineType getLineType() const noexcept { return _lineType; }
 protected:
     LineType        _lineType{LineType::Straight};
-signals:
+Q_SIGNALS:
     void            lineTypeChanged();
 
 public:
@@ -371,7 +371,7 @@ public:
     inline const QColor&    getLineColor() const noexcept { return _lineColor; }
 protected:
     QColor                  _lineColor = QColor( 0, 0, 0, 255 );
-signals:
+Q_SIGNALS:
     void                    lineColorChanged();
 
 public:
@@ -380,7 +380,7 @@ public:
     inline qreal    getLineWidth() const noexcept { return _lineWidth; }
 protected:
     qreal           _lineWidth = 2.0;
-signals:
+Q_SIGNALS:
     void            lineWidthChanged();
 
 public:
@@ -389,7 +389,7 @@ public:
     inline qreal    getArrowSize() const noexcept { return _arrowSize; }
 protected:
     qreal           _arrowSize = 4.0;
-signals:
+Q_SIGNALS:
     void            arrowSizeChanged();
 
 public:
@@ -403,7 +403,7 @@ public:
 private:
     //! \copydoc srcShape
     ArrowShape          _srcShape{ArrowShape::None};
-signals:
+Q_SIGNALS:
     void                srcShapeChanged();
 
 public:
@@ -417,7 +417,7 @@ public:
 private:
     //! \copydoc dstShape
     ArrowShape          _dstShape{ArrowShape::Arrow};
-signals:
+Q_SIGNALS:
     void                dstShapeChanged();
 
 public:
@@ -430,7 +430,7 @@ public:
 protected:
     //! \copydoc dashed
     bool            _dashed{false};
-signals:
+Q_SIGNALS:
     //! \copydoc dashed
     void            dashedChanged();
 
@@ -444,7 +444,7 @@ public:
 protected:
     //! \copydoc dashPattern
     QVector<qreal>  _dashPattern{ 2, 2 };
-signals:
+Q_SIGNALS:
     //! \copydoc dashPattern
     void            dashPatternChanged();
     //@}

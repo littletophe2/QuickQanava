@@ -59,7 +59,7 @@ void    FaceNode::setImage(QUrl image) noexcept
     if ( image != _image ) {
         _image = image;
         setLabel(image.toString());
-        emit imageChanged();
+        Q_EMIT imageChanged();
     }
 }
 } // ::qan

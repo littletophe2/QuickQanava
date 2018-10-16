@@ -61,7 +61,7 @@ auto    PortItem::setMultiplicity(Multiplicity multiplicity) noexcept -> void
 {
     if ( _multiplicity != multiplicity ) {
         _multiplicity = multiplicity;
-        emit multiplicityChanged();
+        Q_EMIT multiplicityChanged();
     }
 }
 
@@ -85,7 +85,7 @@ void    PortItem::setDockType(NodeItem::Dock dockType) noexcept
 {
     if ( dockType != _dockType ) {
         _dockType = dockType;
-        emit dockTypeChanged();
+        Q_EMIT dockTypeChanged();
     }
 }
 
@@ -93,7 +93,7 @@ void    PortItem::setLabel( const QString& label ) noexcept
 {
     if ( _label != label ) {
         _label = label;
-        emit labelChanged();
+        Q_EMIT labelChanged();
     }
 }
 

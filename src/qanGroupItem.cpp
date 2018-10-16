@@ -116,14 +116,14 @@ auto    GroupItem::setRect(const QRectF& r) noexcept -> void
 void    GroupItem::setMinimumSize(QSizeF minimumSize) noexcept
 {
     _minimumSize = minimumSize;
-    emit minimumSizeChanged( );
+    Q_EMIT minimumSizeChanged( );
 }
 
 void    GroupItem::setResizable( bool resizable ) noexcept
 {
     if ( resizable != _resizable ) {
         _resizable = resizable;
-        emit resizableChanged();
+        Q_EMIT resizableChanged();
     }
 }
 //-----------------------------------------------------------------------------
@@ -140,7 +140,7 @@ void    GroupItem::setStyle( qan::Style* style ) noexcept
         if ( _style )
             connect( _style,    &QObject::destroyed,    // Monitor eventual style destruction
                      this,      &GroupItem::styleDestroyed );
-        emit styleChanged( );
+        Q_EMIT styleChanged( );
     }
 }
 
@@ -182,7 +182,7 @@ void    GroupItem::setCollapsed( bool collapsed ) noexcept
 
         if ( !collapsed )
             groupMoved();   // Force update of all adjacent edges
-        emit collapsedChanged();
+        Q_EMIT collapsedChanged();
     }
 }
 //-----------------------------------------------------------------------------
@@ -274,7 +274,7 @@ void    GroupItem::mouseDoubleClickEvent(QMouseEvent* event )
     groupDraggableCtrl->handleMouseDoubleClickEvent(event);
 
     if ( event->button() == Qt::LeftButton )
-        emit groupDoubleClicked( this, event->localPos() );
+        Q_EMIT groupDoubleClicked( this, event->localPos() );
 }
 
 void    GroupItem::mouseMoveEvent(QMouseEvent* event )
@@ -299,9 +299,9 @@ void    GroupItem::mousePressEvent( QMouseEvent* event )
     groupDraggableCtrl->handleMousePressEvent(event);
 
     if ( event->button() == Qt::LeftButton )
-        emit groupClicked( this, event->localPos() );
+        Q_EMIT groupClicked( this, event->localPos() );
     else if ( event->button() == Qt::RightButton )
-        emit groupRightClicked( this, event->localPos() );
+        Q_EMIT groupRightClicked( this, event->localPos() );
 }
 
 void    GroupItem::mouseReleaseEvent( QMouseEvent* event )

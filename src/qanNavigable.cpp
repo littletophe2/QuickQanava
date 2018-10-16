@@ -64,7 +64,7 @@ void    Navigable::setNavigable( bool navigable ) noexcept
 {
     if ( navigable != _navigable ) {
         _navigable = navigable;
-        emit navigableChanged();
+        Q_EMIT navigableChanged();
     }
 }
 
@@ -125,8 +125,8 @@ void    Navigable::fitInView( )
         if ( isValidZoom(fitZoom) ) {
             _zoom = fitZoom;
             _containerItem->setScale(_zoom);
-            emit zoomChanged();
-            emit containerItemModified();
+            Q_EMIT zoomChanged();
+            Q_EMIT containerItemModified();
             navigableContainerItemModified();
             updateGrid();
         }
@@ -139,7 +139,7 @@ void    Navigable::setAutoFitMode( AutoFitMode autoFitMode )
         fitInView();    // When going to auto fit mode from another mode, force fitInView()
 
     _autoFitMode = autoFitMode;
-    emit autoFitModeChanged();
+    Q_EMIT autoFitModeChanged();
 }
 
 void    Navigable::setZoom( qreal zoom )
@@ -156,8 +156,8 @@ void    Navigable::setZoom( qreal zoom )
             _zoom = zoom;
             _containerItem->setScale( _zoom );
             _zoomModified = true;
-            emit zoomChanged();
-            emit containerItemModified();
+            Q_EMIT zoomChanged();
+            Q_EMIT containerItemModified();
             navigableContainerItemModified();
         }
     }
@@ -189,8 +189,8 @@ void    Navigable::zoomOn( QPointF center, qreal zoom )
         _zoom = zoom;
         _zoomModified = true;
         _panModified = true;
-        emit zoomChanged();
-        emit containerItemModified();
+        Q_EMIT zoomChanged();
+        Q_EMIT containerItemModified();
         navigableContainerItemModified();
         updateGrid();
     }
@@ -211,7 +211,7 @@ void    Navigable::setZoomOrigin( QQuickItem::TransformOrigin zoomOrigin )
 {
     if ( zoomOrigin != _zoomOrigin ) {
         _zoomOrigin = zoomOrigin;
-        emit zoomOriginChanged();
+        Q_EMIT zoomOriginChanged();
     }
 }
 
@@ -220,7 +220,7 @@ void    Navigable::setZoomMax( qreal zoomMax )
     if ( qFuzzyCompare( 1. + zoomMax - _zoomMax, 1.0 ) )
         return;
     _zoomMax = zoomMax;
-    emit zoomMaxChanged();
+    Q_EMIT zoomMaxChanged();
 }
 
 void    Navigable::setZoomMin( qreal zoomMin )
@@ -230,14 +230,14 @@ void    Navigable::setZoomMin( qreal zoomMin )
     if ( zoomMin < 0.01 )
         return;
     _zoomMin = zoomMin;
-    emit zoomMinChanged();
+    Q_EMIT zoomMinChanged();
 }
 
 void    Navigable::setDragActive( bool dragActive ) noexcept
 {
     if ( dragActive != _dragActive ) {
         _dragActive = dragActive;
-        emit dragActiveChanged();
+        Q_EMIT dragActiveChanged();
     }
 }
 
@@ -317,7 +317,7 @@ void    Navigable::mouseMoveEvent( QMouseEvent* event )
             QPointF p{ QPointF{ _containerItem->x(), _containerItem->y() } - delta };
             _containerItem->setX( p.x() );
             _containerItem->setY( p.y() );
-            emit containerItemModified();
+            Q_EMIT containerItemModified();
             navigableContainerItemModified();
             _panModified = true;
             _lastPan = event->localPos();
@@ -351,10 +351,10 @@ void    Navigable::mouseReleaseEvent( QMouseEvent* event )
     if ( getNavigable() ) {
         if ( event->button() == Qt::LeftButton &&
              !_dragActive ) {       // Do not emit clicked when dragging occurs
-            emit clicked( event->localPos() );
+            Q_EMIT clicked( event->localPos() );
             navigableClicked( event->localPos() );
         } else if ( event->button() == Qt::RightButton ) {
-            emit rightClicked( event->localPos() );
+            Q_EMIT rightClicked( event->localPos() );
             navigableRightClicked(event->localPos() );
         }
         setDragActive(false);
@@ -397,7 +397,7 @@ void    Navigable::setGrid( qan::Grid* grid ) noexcept
             _grid->setVisible(true);
         }
         updateGrid();
-        emit gridChanged();
+        Q_EMIT gridChanged();
     }
 }
 

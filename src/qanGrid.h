@@ -79,7 +79,7 @@ public:
     Q_PROPERTY( QColor thickColor READ getThickColor WRITE setThickColor NOTIFY thickColorChanged FINAL )
     void            setThickColor( QColor thickColor ) noexcept;
     inline QColor   getThickColor() const noexcept { return _thickColor; }
-signals:
+Q_SIGNALS:
     void            thickColorChanged();
 private:
     QColor          _thickColor{211,211,211};    // lightgrey #D3D3D3 / rgb(211,211,211)
@@ -89,7 +89,7 @@ public:
     Q_PROPERTY( qreal gridWidth READ getGridWidth WRITE setGridWidth NOTIFY gridWidthChanged FINAL )
     void            setGridWidth( qreal gridWidth ) noexcept;
     inline qreal    getGridWidth() const noexcept { return _gridWidth; }
-signals:
+Q_SIGNALS:
     void            gridWidthChanged();
 private:
     qreal           _gridWidth{ 3. };
@@ -99,7 +99,7 @@ public:
     Q_PROPERTY( qreal gridScale READ getGridScale WRITE setGridScale NOTIFY gridScaleChanged FINAL )
     void            setGridScale( qreal gridScale ) noexcept;
     inline qreal    getGridScale() const noexcept { return _gridScale; }
-signals:
+Q_SIGNALS:
     void            gridScaleChanged();
 private:
     qreal           _gridScale{ 100. };
@@ -109,7 +109,7 @@ public:
     Q_PROPERTY( int gridMajor READ getGridMajor WRITE setGridMajor NOTIFY gridMajorChanged FINAL )
     void            setGridMajor( int gridMajor ) noexcept;
     inline int      getGridMajor() const noexcept { return _gridMajor; }
-signals:
+Q_SIGNALS:
     void            gridMajorChanged();
 private:
     int             _gridMajor{ 5 };
@@ -146,7 +146,7 @@ public:
     void                    setGeometryComponent( QQmlComponent* geometryComponent ) noexcept;
     //! \copydoc geometryComponent
     inline QQmlComponent*   getGeometryComponent() noexcept { return _geometryComponent.data(); }
-signals:
+Q_SIGNALS:
     //! \copydoc geometryComponent
     void                    geometryComponentChanged();
 private:
@@ -243,13 +243,13 @@ public:
     void                setGridShape( QObject* gridShape ) noexcept;
     //! \copydoc gridShape
     inline QObject*     getGridShape() noexcept { return _gridShape.data(); }
-signals:
+Q_SIGNALS:
     //! \copydoc gridShape
     void                gridShapeChanged();
 private:
     //! \copydoc gridShape
     QPointer< QObject > _gridShape{nullptr};
-signals:
+Q_SIGNALS:
     //! Emmited when a new line should be inserted in the grid internall Shape (Qt Quick Shapes) view.
     void                addLine(QObject* line);
 
