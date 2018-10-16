@@ -122,11 +122,11 @@ public:
     //@{
 public:
     Q_PROPERTY( QString label READ getLabel WRITE setLabel NOTIFY labelChanged FINAL )
-    void        setLabel( const QString& label ) { _label = label; emit labelChanged( ); }
+    void        setLabel( const QString& label ) { _label = label; Q_EMIT labelChanged( ); }
     QString     getLabel( ) const { return _label; }
 private:
     QString     _label = QString{ "" };
-signals:
+Q_SIGNALS:
     void        labelChanged( );
     //@}
     //-------------------------------------------------------------------------
@@ -141,11 +141,11 @@ public:
      * Default to true.
      */
     Q_PROPERTY( bool draggable READ getDraggable WRITE setDraggable NOTIFY draggableChanged FINAL )
-    void            setDraggable( bool draggable ) { _draggable = draggable; emit draggableChanged( ); }
+    void            setDraggable( bool draggable ) { _draggable = draggable; Q_EMIT draggableChanged( ); }
     bool            getDraggable( ) { return _draggable; }
 private:
     bool            _draggable = true;
-signals:
+Q_SIGNALS:
     void            draggableChanged( );
     //@}
     //-------------------------------------------------------------------------

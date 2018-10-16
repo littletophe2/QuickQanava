@@ -111,7 +111,7 @@ void    Edge::setLabel( const QString& label )
 {
     if ( label != _label ) {
         _label = label;
-        emit labelChanged( );
+        Q_EMIT labelChanged( );
     }
 }
 
@@ -119,7 +119,7 @@ void     Edge::setWeight( qreal weight )
 {
     if ( !qFuzzyCompare( 1.0 + weight, 1.0 + _weight ) ) {
         _weight = weight;
-        emit weightChanged();
+        Q_EMIT weightChanged();
     }
 }
 //-----------------------------------------------------------------------------

@@ -119,7 +119,7 @@ void    Node::setLabel( const QString& label ) noexcept
 {
     if ( label != _label ) {
         _label = label;
-        emit labelChanged();
+        Q_EMIT labelChanged();
     }
 }
 //-----------------------------------------------------------------------------

@@ -57,7 +57,7 @@ public:
     void                setImage(QUrl image) noexcept;
 private:
     QUrl        _image;
-signals:
+Q_SIGNALS:
     void        imageChanged();
 
     /*! \name Node Static Factories *///---------------------------------------

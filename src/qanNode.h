@@ -147,7 +147,7 @@ public:
     QString         getLabel() const noexcept { return _label; }
 private:
     QString         _label{ QStringLiteral("") };
-signals:
+Q_SIGNALS:
     void            labelChanged( );
     //@}
     //-------------------------------------------------------------------------

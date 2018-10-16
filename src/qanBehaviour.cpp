@@ -53,7 +53,7 @@ void    NodeBehaviour::setHost( qan::Node* host )
 {
     if ( _host != host ) {
         _host = host;
-        emit hostChanged();
+        Q_EMIT hostChanged();
     }
 }
 //-----------------------------------------------------------------------------

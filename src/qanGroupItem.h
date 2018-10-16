@@ -115,9 +115,9 @@ public:
     inline qan::Style*      getStyle() const noexcept { return _style.data(); }
 private:
     QPointer<qan::Style>    _style;
-signals:
+Q_SIGNALS:
     void                    styleChanged();
-private slots:
+private Q_SLOTS:
     //! Called when the style associed to this group is destroyed.
     void                    styleDestroyed( QObject* style );
     //@}
@@ -134,7 +134,7 @@ public:
     void            setMinimumSize(QSizeF minimumSize) noexcept;
 private:
     QSizeF          _minimumSize{150., 100};
-signals:
+Q_SIGNALS:
     //! \internal
     void            minimumSizeChanged();
 
@@ -148,7 +148,7 @@ public:
 protected:
     //! \copydoc resizable
     bool            _resizable{true};
-signals:
+Q_SIGNALS:
     //! \copydoc resizable
     void            resizableChanged();
 
@@ -159,15 +159,15 @@ public:
     //! \brief Item used to hilight selection (usually a Rectangle quick item).
     Q_PROPERTY( QQuickItem* selectionItem READ getSelectionItem WRITE setSelectionItem NOTIFY selectionItemChanged FINAL )
 protected:
-    virtual void    emitSelectableChanged() override { emit selectableChanged(); }
-    virtual void    emitSelectedChanged() override { emit selectedChanged(); }
-    virtual void    emitSelectionItemChanged() override { emit selectionItemChanged(); }
-signals:
+    virtual void    emitSelectableChanged() override { Q_EMIT selectableChanged(); }
+    virtual void    emitSelectedChanged() override { Q_EMIT selectedChanged(); }
+    virtual void    emitSelectionItemChanged() override { Q_EMIT selectionItemChanged(); }
+Q_SIGNALS:
     void            selectableChanged();
     void            selectedChanged();
     void            selectionItemChanged();
 
-protected slots:
+protected Q_SLOTS:
     virtual void    onWidthChanged();
     virtual void    onHeightChanged();
     //@}
@@ -181,7 +181,7 @@ public:
     void        setCollapsed( bool collapsed ) noexcept;
 private:
     bool        _collapsed{false};
-signals:
+Q_SIGNALS:
     void        collapsedChanged();
     //@}
     //-------------------------------------------------------------------------
@@ -198,17 +198,17 @@ public:
     //! \copydoc qan::Draggable::_acceptDrops
     Q_PROPERTY( bool acceptDrops READ getAcceptDrops WRITE setAcceptDrops NOTIFY acceptDropsChanged FINAL )
 protected:
-    virtual void    emitDraggableChanged() override { emit draggableChanged(); }
-    virtual void    emitDraggedChanged() override { emit draggedChanged(); }
-    virtual void    emitAcceptDropsChanged() override { emit acceptDropsChanged(); }
-    virtual void    emitDroppableChanged() override { emit droppableChanged(); }
-signals:
+    virtual void    emitDraggableChanged() override { Q_EMIT draggableChanged(); }
+    virtual void    emitDraggedChanged() override { Q_EMIT draggedChanged(); }
+    virtual void    emitAcceptDropsChanged() override { Q_EMIT acceptDropsChanged(); }
+    virtual void    emitDroppableChanged() override { Q_EMIT droppableChanged(); }
+Q_SIGNALS:
     void            draggableChanged();
     void            draggedChanged();
     void            droppableChanged();
     void            acceptDropsChanged();
 
-protected slots:
+protected Q_SLOTS:
     //! Group is monitored for position change, since group's nodes edges should be updated manually in that case.
     void            groupMoved();
 
@@ -222,10 +222,10 @@ public:
     virtual void    ungroupNodeItem(qan::NodeItem* nodeItem);
 
     //! Call at the beginning of another group or node hover operation on this group (usually trigger a visual change to notify user that insertion is possible trought DND).
-    inline void     proposeNodeDrop() noexcept { emit nodeDragEnter( ); }
+    inline void     proposeNodeDrop() noexcept { Q_EMIT nodeDragEnter( ); }
 
     //! End an operation started with proposeNodeDrop().
-    inline void     endProposeNodeDrop() noexcept { emit nodeDragLeave( ); }
+    inline void     endProposeNodeDrop() noexcept { Q_EMIT nodeDragLeave( ); }
 
 public:
     /*! \brief Should be set from the group concrete QML component to indicate the group content item (otherwise, this will be used).
@@ -246,14 +246,14 @@ public:
      * \endcode
      */
     Q_PROPERTY(QQuickItem* container READ getContainer WRITE setContainer NOTIFY containerChanged FINAL)
-    void                    setContainer(QQuickItem* container) noexcept { _container = container; emit containerChanged( ); }
+    void                    setContainer(QQuickItem* container) noexcept { _container = container; Q_EMIT containerChanged( ); }
     inline QQuickItem*      getContainer() noexcept { return _container; }
 protected:
     QPointer<QQuickItem>    _container = nullptr;
-signals:
+Q_SIGNALS:
     void                    containerChanged();
 
-signals:
+Q_SIGNALS:
     //! Emmited whenever a dragged node enter the group area (could be usefull to hilight it in a qan::Group concrete QML component).
     void            nodeDragEnter( );
     //! Emmited whenever a dragged node leave the group area (could be usefull to hilight it in a qan::Group concrete QML component).
@@ -274,7 +274,7 @@ protected:
     virtual void    mousePressEvent(QMouseEvent* event ) override;
     virtual void    mouseReleaseEvent(QMouseEvent* event ) override;
 
-signals:
+Q_SIGNALS:
     //! Emmited whenever the group is clicked (even at the start of a dragging operation).
     void    groupClicked( qan::GroupItem* group, QPointF p );
     //! Emmited whenever the group is double clicked.

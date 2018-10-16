@@ -115,7 +115,7 @@ void    NodeItem::onWidthChanged()
 {
     configureSelectionItem();
     if ( _complexBoundingShape )            // Invalidate actual bounding shape
-        emit requestUpdateBoundingShape();
+        Q_EMIT requestUpdateBoundingShape();
     else setDefaultBoundingShape();
 }
 
@@ -123,7 +123,7 @@ void    NodeItem::onHeightChanged()
 {
     configureSelectionItem();
     if ( _complexBoundingShape )            // Invalidate actual bounding shape
-        emit requestUpdateBoundingShape();
+        Q_EMIT requestUpdateBoundingShape();
     else setDefaultBoundingShape();
 }
 //-----------------------------------------------------------------------------
@@ -133,21 +133,21 @@ void    NodeItem::setResizable( bool resizable ) noexcept
 {
     if ( resizable != _resizable ) {
         _resizable = resizable;
-        emit resizableChanged();
+        Q_EMIT resizableChanged();
     }
 }
 
 void    NodeItem::setRatio(qreal ratio) noexcept
 {
     _ratio = ratio;
-    emit ratioChanged();
+    Q_EMIT ratioChanged();
 }
 
 void    NodeItem::setConnectable( Connectable connectable ) noexcept
 {
     if ( _connectable != connectable ) {
         _connectable = connectable;
-        emit connectableChanged();
+        Q_EMIT connectableChanged();
     }
 }
 //-----------------------------------------------------------------------------
@@ -187,7 +187,7 @@ void    NodeItem::mouseDoubleClickEvent(QMouseEvent* event )
     const auto nodeDraggableCtrl = static_cast<NodeDraggableCtrl*>(_draggableCtrl.get());
     nodeDraggableCtrl->handleMouseDoubleClickEvent(event);
     if ( event->button() == Qt::LeftButton )
-        emit nodeDoubleClicked( this, event->localPos() );
+        Q_EMIT nodeDoubleClicked( this, event->localPos() );
 }
 
 void    NodeItem::mouseMoveEvent(QMouseEvent* event )
@@ -215,9 +215,9 @@ void    NodeItem::mousePressEvent( QMouseEvent* event )
 
         // QML notifications
         if ( event->button() == Qt::LeftButton )
-            emit nodeClicked( this, event->localPos() );
+            Q_EMIT nodeClicked( this, event->localPos() );
         else if ( event->button() == Qt::RightButton )
-            emit nodeRightClicked( this, event->localPos() );
+            Q_EMIT nodeRightClicked( this, event->localPos() );
         event->accept();
     } else
         event->ignore();
@@ -241,7 +241,7 @@ void    NodeItem::setStyle( qan::NodeStyle* style ) noexcept
         if ( _style )
             connect( _style,    &QObject::destroyed,    // Monitor eventual style destruction
                      this,      &NodeItem::styleDestroyed );
-        emit styleChanged( );
+        Q_EMIT styleChanged( );
     }
 }
 
@@ -268,8 +268,8 @@ void    NodeItem::setComplexBoundingShape( bool complexBoundingShape ) noexcept
         if ( !complexBoundingShape )
             setDefaultBoundingShape();
         else
-            emit requestUpdateBoundingShape();
-        emit complexBoundingShapeChanged();
+            Q_EMIT requestUpdateBoundingShape();
+        Q_EMIT complexBoundingShapeChanged();
     }
 }
 
@@ -301,7 +301,7 @@ void    NodeItem::setBoundingShape( QVariantList boundingShape )
     for ( const auto& vp : boundingShape )
         shape[p++] = vp.toPointF( );
     _boundingShape = ( !shape.isEmpty( ) ? shape : generateDefaultBoundingShape() );
-    emit boundingShapeChanged();
+    Q_EMIT boundingShapeChanged();
 }
 
 bool    NodeItem::isInsideBoundingShape( QPointF p )
@@ -332,7 +332,7 @@ void    NodeItem::setLeftDock( QQuickItem* leftDock ) noexcept
             QQmlEngine::setObjectOwnership(leftDock, QQmlEngine::CppOwnership);
         }
         _dockItems[static_cast<std::size_t>(Dock::Left)] = leftDock;
-        emit leftDockChanged();
+        Q_EMIT leftDockChanged();
     }
 }
 
@@ -344,7 +344,7 @@ void    NodeItem::setTopDock( QQuickItem* topDock ) noexcept
             QQmlEngine::setObjectOwnership(topDock, QQmlEngine::CppOwnership);
         }
         _dockItems[static_cast<std::size_t>(Dock::Top)] = topDock;
-        emit topDockChanged();
+        Q_EMIT topDockChanged();
     }
 }
 
@@ -356,7 +356,7 @@ void    NodeItem::setRightDock( QQuickItem* rightDock ) noexcept
             QQmlEngine::setObjectOwnership(rightDock, QQmlEngine::CppOwnership);
         }
         _dockItems[static_cast<std::size_t>(Dock::Right)] = rightDock;
-        emit rightDockChanged();
+        Q_EMIT rightDockChanged();
     }
 }
 
@@ -368,7 +368,7 @@ void    NodeItem::setBottomDock( QQuickItem* bottomDock ) noexcept
             QQmlEngine::setObjectOwnership(bottomDock, QQmlEngine::CppOwnership);
         }
         _dockItems[static_cast<std::size_t>(Dock::Bottom)] = bottomDock;
-        emit bottomDockChanged();
+        Q_EMIT bottomDockChanged();
     }
 }
 

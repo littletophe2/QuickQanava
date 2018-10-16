@@ -127,10 +127,10 @@ public:
     //! \copydoc minimumSize
     const QSizeF&   getMinimumSize() const noexcept { return _minimumSize; }
     //! \copydoc minimumSize
-    void            setMinimumSize(QSizeF minimumSize) noexcept { _minimumSize = minimumSize; emit minimumSizeChanged( ); }
+    void            setMinimumSize(QSizeF minimumSize) noexcept { _minimumSize = minimumSize; Q_EMIT minimumSizeChanged( ); }
 private:
     QSizeF          _minimumSize{100., 45.};
-signals:
+Q_SIGNALS:
     //! \internal
     void            minimumSizeChanged();
 
@@ -149,15 +149,15 @@ public:
     //! \brief Item used to hilight selection (usually a Rectangle quick item).
     Q_PROPERTY( QQuickItem* selectionItem READ getSelectionItem WRITE setSelectionItem NOTIFY selectionItemChanged FINAL )
 protected:
-    virtual void    emitSelectableChanged() override { emit selectableChanged(); }
-    virtual void    emitSelectedChanged() override { emit selectedChanged(); }
-    virtual void    emitSelectionItemChanged() override { emit selectionItemChanged(); }
-signals:
+    virtual void    emitSelectableChanged() override { Q_EMIT selectableChanged(); }
+    virtual void    emitSelectedChanged() override { Q_EMIT selectedChanged(); }
+    virtual void    emitSelectionItemChanged() override { Q_EMIT selectionItemChanged(); }
+Q_SIGNALS:
     void            selectableChanged();
     void            selectedChanged();
     void            selectionItemChanged();
 
-protected slots:
+protected Q_SLOTS:
     virtual void    onWidthChanged();
     virtual void    onHeightChanged();
     //@}
@@ -175,7 +175,7 @@ public:
 protected:
     //! \copydoc resizable
     bool            _resizable{true};
-signals:
+Q_SIGNALS:
     //! \copydoc resizable
     void            resizableChanged();
 
@@ -194,7 +194,7 @@ public:
 protected:
     //! \copydoc ratio
     qreal           _ratio{-1.};
-signals:
+Q_SIGNALS:
     //! \copydoc ratio
     void            ratioChanged();
 
@@ -230,7 +230,7 @@ public:
 protected:
     //! \copydoc connectable
     Connectable     _connectable{Connectable::Connectable};
-signals:
+Q_SIGNALS:
     //! \copydoc connectable
     void            connectableChanged();
     //@}
@@ -248,11 +248,11 @@ public:
     //! \copydoc qan::Draggable::_acceptDrops
     Q_PROPERTY( bool acceptDrops READ getAcceptDrops WRITE setAcceptDrops NOTIFY acceptDropsChanged FINAL )
 protected:
-    virtual void    emitDraggableChanged() override { emit draggableChanged(); }
-    virtual void    emitDraggedChanged() override { emit draggedChanged(); }
-    virtual void    emitAcceptDropsChanged() override { emit acceptDropsChanged(); }
-    virtual void    emitDroppableChanged() override { emit droppableChanged(); }
-signals:
+    virtual void    emitDraggableChanged() override { Q_EMIT draggableChanged(); }
+    virtual void    emitDraggedChanged() override { Q_EMIT draggedChanged(); }
+    virtual void    emitAcceptDropsChanged() override { Q_EMIT acceptDropsChanged(); }
+    virtual void    emitDroppableChanged() override { Q_EMIT droppableChanged(); }
+Q_SIGNALS:
     void            draggableChanged();
     void            draggedChanged();
     void            droppableChanged();
@@ -288,10 +288,10 @@ public:
 private:
     //! \copydoc style
     QPointer<qan::NodeStyle>    _style;
-signals:
+Q_SIGNALS:
     //! \copydoc style
     void                        styleChanged();
-private slots:
+private Q_SLOTS:
     //! Called when this node style is destroyed, remove any existing binding.
     void                        styleDestroyed( QObject* style );
     //@}
@@ -299,7 +299,7 @@ private slots:
 
     /*! \name Intersection Shape Management *///-------------------------------
     //@{
-signals:
+Q_SIGNALS:
     //! Emmited whenever the node is clicked (even at the start of a dragging operation).
     void    nodeClicked( qan::NodeItem* node, QPointF p );
     //! Emmited whenever the node is double clicked.
@@ -314,7 +314,7 @@ public:
     inline bool     getComplexBoundingShape() const noexcept { return _complexBoundingShape; }
 private:
     bool            _complexBoundingShape{false};
-signals:
+Q_SIGNALS:
     void            complexBoundingShapeChanged( );
 
 public:
@@ -327,8 +327,8 @@ public:
      */
     Q_PROPERTY( QPolygonF boundingShape READ getBoundingShape WRITE setBoundingShape NOTIFY boundingShapeChanged FINAL )
     QPolygonF           getBoundingShape() noexcept;
-    void                setBoundingShape( const QPolygonF& boundingShape ) { _boundingShape = boundingShape; emit boundingShapeChanged(); }
-signals:
+    void                setBoundingShape( const QPolygonF& boundingShape ) { _boundingShape = boundingShape; Q_EMIT boundingShapeChanged(); }
+Q_SIGNALS:
     void                boundingShapeChanged();
     //! signal is emmited when the bounding shape become invalid and should be regenerated from QML.
     void                requestUpdateBoundingShape();
@@ -407,7 +407,7 @@ public:
     void                    setLeftDock( QQuickItem* leftDock ) noexcept;
     //! \copydoc leftDock
     inline QQuickItem*      getLeftDock() noexcept { return _dockItems[static_cast<std::size_t>(Dock::Left)].data(); }
-signals:
+Q_SIGNALS:
     //! \copydoc leftDock
     void                    leftDockChanged();
 
@@ -418,7 +418,7 @@ public:
     void                    setTopDock( QQuickItem* topDock ) noexcept;
     //! \copydoc topDock
     inline QQuickItem*      getTopDock() noexcept { return _dockItems[static_cast<std::size_t>(Dock::Top)].data(); }
-signals:
+Q_SIGNALS:
     //! \copydoc topDock
     void                    topDockChanged();
 
@@ -429,7 +429,7 @@ public:
     void                    setRightDock( QQuickItem* rightDock ) noexcept;
     //! \copydoc rightDock
     inline QQuickItem*      getRightDock() noexcept { return _dockItems[static_cast<std::size_t>(Dock::Right)].data(); }
-signals:
+Q_SIGNALS:
     //! \copydoc rightDock
     void                    rightDockChanged();
 
@@ -440,7 +440,7 @@ public:
     void                    setBottomDock( QQuickItem* bottomDock ) noexcept;
     //! \copydoc bottomDock
     inline QQuickItem*      getBottomDock() noexcept { return _dockItems[static_cast<std::size_t>(Dock::Bottom)].data(); }
-signals:
+Q_SIGNALS:
     //! \copydoc bottomDock
     void                    bottomDockChanged();
 

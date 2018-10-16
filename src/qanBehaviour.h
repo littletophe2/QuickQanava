@@ -87,7 +87,7 @@ public:
 private:
     //! \copydoc host
     QPointer<qan::Node> _host{nullptr};
-signals:
+Q_SIGNALS:
     //! \copydoc host
     void                hostChanged();
     //@}

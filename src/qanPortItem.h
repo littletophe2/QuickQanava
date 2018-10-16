@@ -115,7 +115,7 @@ public:
 private:
     //! \copydoc Multiplicity
     Multiplicity        _multiplicity{Multiplicity::Multiple};
-signals:
+Q_SIGNALS:
     void                multiplicityChanged();
 
 public:
@@ -125,7 +125,7 @@ public:
     void                    setDockType(NodeItem::Dock dockType) noexcept;
 private:
     qan::NodeItem::Dock     _dockType{NodeItem::Dock::Left};
-signals:
+Q_SIGNALS:
     void                    dockTypeChanged();
 
 public:
@@ -134,7 +134,7 @@ public:
     inline QString  getLabel() const noexcept { return _label; }
 private:
     QString         _label{QStringLiteral("")};
-signals:
+Q_SIGNALS:
     void            labelChanged();
 
 public:
