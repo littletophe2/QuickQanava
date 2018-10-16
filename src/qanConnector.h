@@ -78,7 +78,7 @@ public:
 protected:
     auto    getGraph() const noexcept -> qan::Graph*;
     QPointer<qan::Graph>    _graph;
-signals:
+Q_SIGNALS:
     void    graphChanged();
     //@}
     //-------------------------------------------------------------------------
@@ -93,7 +93,7 @@ public:
 
     /*! \name Connector Configuration *///-------------------------------------
     //@{
-signals:
+Q_SIGNALS:
     //! Emitted when \c createDefaultEdge is set to false to request creation of an edge after the visual connector has been dropped on a destination node or edge.
     void    requestEdgeCreation(qan::Node* src, QObject* dst);
     //! Emmited after an edge has been created to allow user configuration (not emmited when \c createDefaultEdge is set to false).
@@ -117,7 +117,7 @@ public:
 protected:
     //! \copydoc createDefaultEdge
     bool        _createDefaultEdge{true};
-signals:
+Q_SIGNALS:
     //! \copydoc createDefaultEdge
     void        createDefaultEdgeChanged();
 
@@ -126,7 +126,7 @@ public:
     Q_PROPERTY( QQuickItem* connectorItem READ getConnectorItem WRITE setConnectorItem NOTIFY connectorItemChanged FINAL )
     auto    getConnectorItem() noexcept -> QQuickItem*;
     auto    setConnectorItem(QQuickItem* connectorItem) noexcept -> void;
-signals:
+Q_SIGNALS:
     void    connectorItemChanged();
 protected:
     QPointer<QQuickItem>  _connectorItem;
@@ -135,7 +135,7 @@ public:
     Q_PROPERTY( QQmlComponent* edgeComponent READ getEdgeComponent WRITE setEdgeComponent NOTIFY edgeComponentChanged FINAL )
     auto    getEdgeComponent() noexcept -> QQmlComponent*;
     auto    setEdgeComponent(QQmlComponent* edgeComponent) noexcept -> void;
-signals:
+Q_SIGNALS:
     void    edgeComponentChanged();
 protected:
     QPointer<QQmlComponent>  _edgeComponent;
@@ -143,7 +143,7 @@ protected:
 public:
     Q_PROPERTY( qan::EdgeItem* edgeItem READ getEdgeItem NOTIFY edgeItemChanged FINAL )
     auto    getEdgeItem() noexcept -> qan::EdgeItem*;
-signals:
+Q_SIGNALS:
     void    edgeItemChanged();
 protected:
     QPointer<qan::EdgeItem>  _edgeItem;
@@ -159,9 +159,9 @@ public:
     inline qan::PortItem*   getSourcePort() const noexcept { return _sourcePort.data(); }
 private:
     QPointer<qan::PortItem> _sourcePort;
-signals:
+Q_SIGNALS:
     void                    sourcePortChanged();
-private slots:
+private Q_SLOTS:
     //! Called when the current source port is destroyed.
     void                    sourcePortDestroyed();
 
@@ -176,9 +176,9 @@ public:
     inline qan::Node*   getSourceNode() const noexcept { return _sourceNode.data(); }
 private:
     QPointer<qan::Node> _sourceNode;
-signals:
+Q_SIGNALS:
     void                sourceNodeChanged();
-private slots:
+private Q_SLOTS:
     //! Called when the current source node is destroyed.
     void                sourceNodeDestroyed();
     //@}

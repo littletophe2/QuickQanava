@@ -93,7 +93,7 @@ void    Graph::componentComplete()
             qan::Style* style = qan::Connector::style();
             if ( style != nullptr ) {
                 _connector.reset( qobject_cast<qan::Connector*>(createFromComponent(connectorComponent.get(), *style, nullptr)) );
-                emit connectorChanged();
+                Q_EMIT connectorChanged();
                 if (_connector) {
                     _connector->setGraph(this);
                     _connector->setEnabled(getConnectorEnabled());
@@ -183,7 +183,7 @@ void    Graph::setContainerItem( QQuickItem* containerItem )
     if ( containerItem != nullptr &&
          containerItem != _containerItem.data() ) {
         _containerItem = containerItem;
-        emit containerItemChanged();
+        Q_EMIT containerItemChanged();
     }
 }
 //-----------------------------------------------------------------------------
@@ -206,7 +206,7 @@ void    Graph::setConnectorEdgeColor( QColor connectorEdgeColor ) noexcept
         _connectorEdgeColor = connectorEdgeColor;
         if ( _connector )
             _connector->setProperty( "edgeColor", connectorEdgeColor );
-        emit connectorEdgeColorChanged();
+        Q_EMIT connectorEdgeColorChanged();
     }
 }
 
@@ -216,7 +216,7 @@ void    Graph::setConnectorColor( QColor connectorColor ) noexcept
         _connectorColor = connectorColor;
         if ( _connector )
             _connector->setProperty( "connectorColor", connectorColor );
-        emit connectorColorChanged();
+        Q_EMIT connectorColorChanged();
     }
 }
 
@@ -226,7 +226,7 @@ void    Graph::setConnectorHEdgeEnabled( bool connectorHEdgeEnabled ) noexcept
         _connectorHEdgeEnabled = connectorHEdgeEnabled;
         if ( _connector )
             _connector->setProperty( "hEdgeEnabled", connectorHEdgeEnabled );
-        emit connectorColorChanged();
+        Q_EMIT connectorColorChanged();
     }
 }
 
@@ -236,7 +236,7 @@ void    Graph::setConnectorCreateDefaultEdge( bool connectorCreateDefaultEdge ) 
         _connectorCreateDefaultEdge = connectorCreateDefaultEdge;
         if ( _connector )
             _connector->setProperty( "createDefaultEdge", connectorCreateDefaultEdge );
-        emit connectorCreateDefaultEdgeChanged();
+        Q_EMIT connectorCreateDefaultEdgeChanged();
     }
 }
 
@@ -247,7 +247,7 @@ void    Graph::setConnectorItem( QQuickItem* connectorItem ) noexcept
         if ( _connectorItem &&
              _connector )
             _connector->setConnectorItem( _connectorItem.data() );
-        emit connectorItemChanged();
+        Q_EMIT connectorItemChanged();
     }
 }
 
@@ -259,7 +259,7 @@ void    Graph::setConnectorEnabled( bool connectorEnabled ) noexcept
             _connector->setVisible(connectorEnabled);
             _connector->setEnabled(connectorEnabled);
         }
-        emit connectorEnabledChanged();
+        Q_EMIT connectorEnabledChanged();
     }
 }
 qan::Connector* Graph::getConnector() noexcept  {  return _connector.data(); }
@@ -272,7 +272,7 @@ void    Graph::setNodeDelegate(QQmlComponent* nodeDelegate) noexcept
         if ( nodeDelegate != _nodeDelegate.get() ) {
             _nodeDelegate.reset(nodeDelegate);
             QQmlEngine::setObjectOwnership( nodeDelegate, QQmlEngine::CppOwnership );
-            emit nodeDelegateChanged();
+            Q_EMIT nodeDelegateChanged();
         }
     }
 }
@@ -293,7 +293,7 @@ void    Graph::setEdgeDelegate(std::unique_ptr<QQmlComponent> edgeDelegate) noex
     if ( edgeDelegate &&
          edgeDelegate != _edgeDelegate ) {
         _edgeDelegate = std::move(edgeDelegate);
-        emit edgeDelegateChanged();
+        Q_EMIT edgeDelegateChanged();
     }
 }
 
@@ -303,7 +303,7 @@ void    Graph::setGroupDelegate(QQmlComponent* groupDelegate) noexcept
         if ( groupDelegate != _groupDelegate.get() ) {
             _groupDelegate.reset(groupDelegate);
             QQmlEngine::setObjectOwnership( groupDelegate, QQmlEngine::CppOwnership );
-            emit groupDelegateChanged();
+            Q_EMIT groupDelegateChanged();
         }
     }
 }
@@ -429,7 +429,7 @@ void Graph::setSelectionDelegate(std::unique_ptr<QQmlComponent> selectionDelegat
         };
         std::for_each(get_groups().begin(), get_groups().end(), updateGroupSelectionItem);
         std::for_each(get_nodes().begin(), get_nodes().end(), updateNodeSelectionItem);
-        emit selectionDelegateChanged();
+        Q_EMIT selectionDelegateChanged();
     }
 }
 
@@ -730,19 +730,19 @@ bool    Graph::configureEdge( qan::Edge& edge, QQmlComponent& edgeComponent, qan
 
     auto notifyEdgeClicked = [this] (qan::EdgeItem* edgeItem, QPointF p) {
         if ( edgeItem != nullptr && edgeItem->getEdge() != nullptr )
-            emit this->edgeClicked(edgeItem->getEdge(), p);
+            Q_EMIT this->edgeClicked(edgeItem->getEdge(), p);
     };
     connect( edgeItem, &qan::EdgeItem::edgeClicked, notifyEdgeClicked );
 
     auto notifyEdgeRightClicked = [this] (qan::EdgeItem* edgeItem, QPointF p) {
         if ( edgeItem != nullptr && edgeItem->getEdge() != nullptr )
-            emit this->edgeRightClicked(edgeItem->getEdge(), p);
+            Q_EMIT this->edgeRightClicked(edgeItem->getEdge(), p);
     };
     connect( edgeItem, &qan::EdgeItem::edgeRightClicked, notifyEdgeRightClicked );
 
     auto notifyEdgeDoubleClicked = [this] (qan::EdgeItem* edgeItem, QPointF p) {
         if ( edgeItem != nullptr && edgeItem->getEdge() != nullptr )
-            emit this->edgeDoubleClicked(edgeItem->getEdge(), p);
+            Q_EMIT this->edgeDoubleClicked(edgeItem->getEdge(), p);
     };
     connect( edgeItem, &qan::EdgeItem::edgeDoubleClicked, notifyEdgeDoubleClicked );
     return true;
@@ -873,7 +873,7 @@ void    Graph::setSelectionPolicy( SelectionPolicy selectionPolicy ) noexcept
     _selectionPolicy = selectionPolicy;
     if ( selectionPolicy == SelectionPolicy::NoSelection )
         clearSelection();
-    emit selectionPolicyChanged( );
+    Q_EMIT selectionPolicyChanged( );
 }
 
 void    Graph::setSelectionColor( QColor selectionColor ) noexcept
@@ -881,7 +881,7 @@ void    Graph::setSelectionColor( QColor selectionColor ) noexcept
     if ( selectionColor != _selectionColor ) {
         _selectionColor = selectionColor;
         configureSelectionItems();
-        emit selectionColorChanged();
+        Q_EMIT selectionColorChanged();
     }
 }
 
@@ -890,7 +890,7 @@ void    Graph::setSelectionWeight( qreal selectionWeight ) noexcept
     if ( !qFuzzyCompare( 1. + selectionWeight, 1. + _selectionWeight ) ) {
         _selectionWeight = selectionWeight;
         configureSelectionItems();
-        emit selectionWeightChanged();
+        Q_EMIT selectionWeightChanged();
     }
 }
 
@@ -899,7 +899,7 @@ void    Graph::setSelectionMargin( qreal selectionMargin ) noexcept
     if ( !qFuzzyCompare( 1.0 + selectionMargin, 1.0 + _selectionMargin ) ) {
         _selectionMargin = selectionMargin;
         configureSelectionItems();
-        emit selectionMarginChanged();
+        Q_EMIT selectionMarginChanged();
     }
 }
 
@@ -1037,7 +1037,7 @@ void    Graph::mousePressEvent( QMouseEvent* event )
         forceActiveFocus();
     } else if ( event->button() == Qt::RightButton ) {
         qDebug() << "qan::Graph::rightClicked()";
-        emit rightClicked(event->pos());
+        Q_EMIT rightClicked(event->pos());
     }
     event->ignore();
     qan::Config::graph_base::mousePressEvent(event);
@@ -1079,7 +1079,7 @@ qan::PortItem*  Graph::insertPort(qan::Node* node,
                 const auto portItem = qobject_cast<qan::PortItem*>(nodeItem);
                 if ( portItem != nullptr &&
                      portItem->getNode() != nullptr )
-                    emit this->portClicked(portItem, p);
+                    Q_EMIT this->portClicked(portItem, p);
             };
             connect( portItem, &qan::NodeItem::nodeClicked, notifyPortClicked );
 
@@ -1087,7 +1087,7 @@ qan::PortItem*  Graph::insertPort(qan::Node* node,
                 const auto portItem = qobject_cast<qan::PortItem*>(nodeItem);
                 if ( portItem != nullptr &&
                      portItem->getNode() != nullptr )
-                    emit this->portRightClicked(portItem, p);
+                    Q_EMIT this->portRightClicked(portItem, p);
             };
             connect( portItem, &qan::NodeItem::nodeRightClicked, notifyPortRightClicked );
 
@@ -1144,7 +1144,7 @@ void    Graph::qmlSetPortDelegate(QQmlComponent* portDelegate) noexcept
         if ( portDelegate != nullptr )
             QQmlEngine::setObjectOwnership( portDelegate, QQmlEngine::CppOwnership );
         _portDelegate.reset(portDelegate);
-        emit portDelegateChanged();
+        Q_EMIT portDelegateChanged();
     }
 }
 void    Graph::setPortDelegate(std::unique_ptr<QQmlComponent> portDelegate) noexcept { qmlSetPortDelegate(portDelegate.release()); }
@@ -1155,7 +1155,7 @@ void    Graph::setHorizontalDockDelegate(QQmlComponent* horizontalDockDelegate) 
         if ( horizontalDockDelegate != _horizontalDockDelegate.get() ) {
             _horizontalDockDelegate.reset(horizontalDockDelegate);
             QQmlEngine::setObjectOwnership( horizontalDockDelegate, QQmlEngine::CppOwnership );
-            emit horizontalDockDelegateChanged();
+            Q_EMIT horizontalDockDelegateChanged();
         }
     }
 }
@@ -1167,7 +1167,7 @@ void    Graph::setVerticalDockDelegate(QQmlComponent* verticalDockDelegate) noex
         if ( verticalDockDelegate != _verticalDockDelegate.get() ) {
             _verticalDockDelegate.reset(verticalDockDelegate);
             QQmlEngine::setObjectOwnership( verticalDockDelegate, QQmlEngine::CppOwnership );
-            emit verticalDockDelegateChanged();
+            Q_EMIT verticalDockDelegateChanged();
         }
     }
 }

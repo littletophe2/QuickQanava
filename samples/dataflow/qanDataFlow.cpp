@@ -73,7 +73,7 @@ void    FlowNode::inNodeOutputChanged()
 void    FlowNode::setOutput(QVariant output) noexcept
 {
     _output = output;
-    emit outputChanged();
+    Q_EMIT outputChanged();
 }
 
 QQmlComponent*  PercentageNode::delegate(QQmlEngine& engine) noexcept
@@ -96,7 +96,7 @@ void    OperationNode::setOperation(Operation operation) noexcept
 {
     if ( _operation != operation ) {
         _operation = operation;
-        emit operationChanged();
+        Q_EMIT operationChanged();
     }
 }
 
@@ -156,7 +156,7 @@ void    TintNode::setSource(QUrl source) noexcept
 {
     if ( _source != source ) {
         _source = source;
-        emit sourceChanged();
+        Q_EMIT sourceChanged();
     }
 }
 
@@ -164,7 +164,7 @@ void    TintNode::setTintColor(QColor tintColor) noexcept
 {
     if ( _tintColor != tintColor ) {
         _tintColor = tintColor;
-        emit tintColorChanged();
+        Q_EMIT tintColorChanged();
     }
 }
 

@@ -128,7 +128,7 @@ public:
     inline QQuickItem*          getContainerItem() noexcept { return _containerItem.data(); }
     inline const QQuickItem*    getContainerItem() const noexcept { return _containerItem.data(); }
     void                        setContainerItem( QQuickItem* containerItem );
-signals:
+Q_SIGNALS:
     void                        containerItemChanged();
 private:
     QPointer< QQuickItem >      _containerItem{nullptr};
@@ -143,7 +143,7 @@ public:
      * \note If \c sourceNode is nullptr, visual connector is hidden.
      */
     Q_INVOKABLE void    setConnectorSource(qan::Node* sourceNode) noexcept;
-signals:
+Q_SIGNALS:
     //! \copydoc hlg::Connector::requestEdgeCreation
     void                connectorRequestEdgeCreation(qan::Node* src, QObject* dst);
     //! \copydoc hlg::Connector::edgeInserted
@@ -154,7 +154,7 @@ public:
     Q_PROPERTY( QColor connectorEdgeColor READ getConnectorEdgeColor WRITE setConnectorEdgeColor NOTIFY connectorEdgeColorChanged FINAL )
     inline QColor   getConnectorEdgeColor() const noexcept { return _connectorEdgeColor; }
     void            setConnectorEdgeColor( QColor connectorEdgeColor ) noexcept;
-signals:
+Q_SIGNALS:
     void            connectorEdgeColorChanged();
 private:
     QColor          _connectorEdgeColor{Qt::black};
@@ -164,7 +164,7 @@ public:
     Q_PROPERTY( QColor connectorColor READ getConnectorColor WRITE setConnectorColor NOTIFY connectorColorChanged FINAL )
     inline QColor   getConnectorColor() const noexcept { return _connectorColor; }
     void            setConnectorColor( QColor connectorColor ) noexcept;
-signals:
+Q_SIGNALS:
     void            connectorColorChanged();
 private:
     QColor          _connectorColor{30, 144, 255};  // dodgerblue=rgb(30, 144, 255)
@@ -174,7 +174,7 @@ public:
     Q_PROPERTY( bool connectorHEdgeEnabled READ getConnectorHEdgeEnabled WRITE setConnectorHEdgeEnabled NOTIFY connectorHEdgeEnabledChanged FINAL )
     inline bool     getConnectorHEdgeEnabled() const noexcept { return _connectorHEdgeEnabled; }
     void            setConnectorHEdgeEnabled( bool connectorHEdgeEnabled ) noexcept;
-signals:
+Q_SIGNALS:
     void            connectorHEdgeEnabledChanged();
 private:
     bool            _connectorHEdgeEnabled{false};
@@ -184,7 +184,7 @@ public:
     Q_PROPERTY( bool connectorCreateDefaultEdge READ getConnectorCreateDefaultEdge WRITE setConnectorCreateDefaultEdge NOTIFY connectorCreateDefaultEdgeChanged FINAL )
     inline bool     getConnectorCreateDefaultEdge() const noexcept { return _connectorCreateDefaultEdge; }
     void            setConnectorCreateDefaultEdge( bool connectorCreateDefaultEdge ) noexcept;
-signals:
+Q_SIGNALS:
     void            connectorCreateDefaultEdgeChanged();
 private:
     bool            _connectorCreateDefaultEdge{true};
@@ -194,7 +194,7 @@ public:
     Q_PROPERTY( QQuickItem* connectorItem READ getConnectorItem WRITE setConnectorItem NOTIFY connectorItemChanged FINAL )
     inline QQuickItem*      getConnectorItem() const noexcept { return _connectorItem; }
     void                    setConnectorItem( QQuickItem* connectorItem ) noexcept;
-signals:
+Q_SIGNALS:
     void                    connectorItemChanged();
 private:
     QPointer<QQuickItem>    _connectorItem{nullptr};
@@ -204,7 +204,7 @@ public:
     Q_PROPERTY( bool connectorEnabled READ getConnectorEnabled WRITE setConnectorEnabled NOTIFY connectorEnabledChanged FINAL )
     inline bool     getConnectorEnabled() const noexcept { return _connectorEnabled; }
     void            setConnectorEnabled( bool connectorEnabled ) noexcept;
-signals:
+Q_SIGNALS:
     void            connectorEnabledChanged();
 private:
     bool            _connectorEnabled{false};
@@ -215,7 +215,7 @@ public:
     qan::Connector*             getConnector() noexcept;
 private:
     QScopedPointer<qan::Connector> _connector{};
-signals:
+Q_SIGNALS:
     void                        connectorChanged();
     //@}
     //-------------------------------------------------------------------------
@@ -229,7 +229,7 @@ public:
 protected:
     void                    setNodeDelegate(QQmlComponent* nodeDelegate) noexcept;
     void                    setNodeDelegate(std::unique_ptr<QQmlComponent> nodeDelegate) noexcept;
-signals:
+Q_SIGNALS:
     void                    nodeDelegateChanged();
 private:
     std::unique_ptr<QQmlComponent> _nodeDelegate;
@@ -241,7 +241,7 @@ public:
 protected:
     void                    setEdgeDelegate(QQmlComponent* edgeDelegate) noexcept;
     void                    setEdgeDelegate(std::unique_ptr<QQmlComponent> edgeDelegate) noexcept;
-signals:
+Q_SIGNALS:
     void                    edgeDelegateChanged();
 private:
     std::unique_ptr<QQmlComponent> _edgeDelegate;
@@ -253,7 +253,7 @@ public:
 protected:
     void                    setGroupDelegate(QQmlComponent* groupDelegate) noexcept;
     void                    setGroupDelegate(std::unique_ptr<QQmlComponent> groupDelegate) noexcept;
-signals:
+Q_SIGNALS:
     void                    groupDelegateChanged();
 private:
     std::unique_ptr<QQmlComponent> _groupDelegate;
@@ -283,7 +283,7 @@ protected:
     void                    setSelectionDelegate(QQmlComponent* selectionDelegate) noexcept;
     //! \copydoc selectionDelegate
     void                    setSelectionDelegate(std::unique_ptr<QQmlComponent> selectionDelegate) noexcept;
-signals:
+Q_SIGNALS:
     //! \copydoc selectionDelegate
     void                    selectionDelegateChanged();
 public: // should be considered private
@@ -354,7 +354,7 @@ public:
     Q_PROPERTY( QAbstractItemModel* nodes READ getNodesModel CONSTANT FINAL )
     QAbstractItemModel*     getNodesModel() const { return get_nodes().model(); }
 
-signals:
+Q_SIGNALS:
     /*! \brief Emitted whenever a node registered in this graph is clicked.
      */
     void            nodeClicked( qan::Node* node, QPointF pos );
@@ -436,7 +436,7 @@ public:
     Q_PROPERTY( QAbstractItemModel* edges READ getEdgesModel CONSTANT FINAL )
     QAbstractItemModel* getEdgesModel() const { return get_edges().model(); }
 
-signals:
+Q_SIGNALS:
     /*! \brief Emitted whenever a node registered in this graph is clicked.
      *
      *  \sa nodeClicked()
@@ -486,7 +486,7 @@ public:
     //! Empty, defined to provide a compatible interface for qan::DraggableCtrl<>.
     void                    ungroupNode( qan::Group*, qan::Group* ) noexcept(false) { }
 
-signals:
+Q_SIGNALS:
     /*! \brief Emitted when a group registered in this graph is clicked.
      */
     void            groupClicked( qan::Group* group, QPointF pos );
@@ -520,7 +520,7 @@ public:
     inline SelectionPolicy  getSelectionPolicy() const noexcept { return _selectionPolicy; }
 private:
     SelectionPolicy         _selectionPolicy{ SelectionPolicy::SelectOnClick };
-signals:
+Q_SIGNALS:
     void                    selectionPolicyChanged();
 
 
@@ -531,7 +531,7 @@ public:
     inline QColor   getSelectionColor() const noexcept { return _selectionColor; }
 private:
     QColor          _selectionColor{30, 144, 255};  // dodgerblue=rgb(30, 144, 255)
-signals:
+Q_SIGNALS:
     void            selectionColorChanged();
 
 public:
@@ -541,7 +541,7 @@ public:
     inline qreal    getSelectionWeight() const noexcept { return _selectionWeight; }
 private:
     qreal           _selectionWeight{ 3. };
-signals:
+Q_SIGNALS:
     void            selectionWeightChanged( );
 
 public:
@@ -551,7 +551,7 @@ public:
     inline qreal    getSelectionMargin() const noexcept { return _selectionMargin; }
 private:
     qreal           _selectionMargin{ 3. };
-signals:
+Q_SIGNALS:
     void            selectionMarginChanged();
 
 protected:
@@ -599,7 +599,7 @@ public:
 
     inline auto         getSelectedNodes() noexcept -> SelectedNodes& { return _selectedNodes; }
     inline auto         getSelectedNodes() const noexcept -> const SelectedNodes& { return _selectedNodes; }
-signals:
+Q_SIGNALS:
     void                selectedNodesChanged();
 public:
     inline auto         getSelectedGroups() noexcept -> SelectedGroups& { return _selectedGroups; }
@@ -611,7 +611,7 @@ private:
 protected:
     virtual void        mousePressEvent(QMouseEvent* event ) override;
 
-signals:
+Q_SIGNALS:
     void                rightClicked(QPointF pos);
     //@}
     //-------------------------------------------------------------------------
@@ -668,14 +668,14 @@ protected:
     void                    qmlSetPortDelegate(QQmlComponent* portDelegate) noexcept;
     //! \copydoc portDelegate
     void                    setPortDelegate(std::unique_ptr<QQmlComponent> portDelegate) noexcept;
-signals:
+Q_SIGNALS:
     //! \copydoc portDelegate
     void                    portDelegateChanged();
 private:
     //! \copydoc portDelegate
     std::unique_ptr<QQmlComponent> _portDelegate;
 
-signals:
+Q_SIGNALS:
     /*! \brief Emitted whenever a port node registered in this graph is clicked.
      */
     void            portClicked( qan::PortItem* port, QPointF pos );
@@ -693,7 +693,7 @@ protected:
     void                    setHorizontalDockDelegate(QQmlComponent* horizontalDockDelegate) noexcept;
     //! \copydoc horizontalDockDelegate
     void                    setHorizontalDockDelegate(std::unique_ptr<QQmlComponent> horizontalDockDelegate) noexcept;
-signals:
+Q_SIGNALS:
     //! \copydoc horizontalDockDelegate
     void                    horizontalDockDelegateChanged();
 private:
@@ -710,7 +710,7 @@ protected:
     void                    setVerticalDockDelegate(QQmlComponent* verticalDockDelegate) noexcept;
     //! \copydoc horizontalDockDelegate
     void                    setVerticalDockDelegate(std::unique_ptr<QQmlComponent> verticalDockDelegate) noexcept;
-signals:
+Q_SIGNALS:
     //! \copydoc horizontalDockDelegate
     void                    verticalDockDelegateChanged();
 private:

@@ -53,28 +53,28 @@ private:
 public:
     Q_PROPERTY( qreal dummyReal READ getDummyReal WRITE setDummyReal NOTIFY dummyRealChanged )
     qreal       getDummyReal( ) const { return _dummyReal; }
-    void        setDummyReal( qreal dummyReal ) { _dummyReal = dummyReal; emit dummyRealChanged(); }
+    void        setDummyReal( qreal dummyReal ) { _dummyReal = dummyReal; Q_EMIT dummyRealChanged(); }
 protected:
     qreal       _dummyReal{ 42. };
-signals:
+Q_SIGNALS:
     void        dummyRealChanged( );
 
 public:
     Q_PROPERTY( QString label READ getLabel WRITE setLabel NOTIFY labelChanged )
     const QString&  getLabel() const { return _label; }
-    void            setLabel(const QString& label ){ _label = label; emit labelChanged(); }
+    void            setLabel(const QString& label ){ _label = label; Q_EMIT labelChanged(); }
 protected:
     QString         _label{QStringLiteral("Label")};
-signals:
+Q_SIGNALS:
     void            labelChanged( );
 
 public:
     Q_PROPERTY( QString dummyString READ getDummyString WRITE setDummyString NOTIFY dummyStringChanged )
     const QString&  getDummyString() const { return _dummyString; }
-    void            setDummyString(const QString& dummyString ){ _dummyString = dummyString; emit dummyStringChanged(); }
+    void            setDummyString(const QString& dummyString ){ _dummyString = dummyString; Q_EMIT dummyStringChanged(); }
 protected:
     QString         _dummyString{QStringLiteral("Dummy")};
-signals:
+Q_SIGNALS:
     void            dummyStringChanged( );
 };
 
@@ -90,7 +90,7 @@ public:
     }
 
     int     count = 0;
-public slots:
+public Q_SLOTS:
     void    onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int> ())
     {
         Q_UNUSED(topLeft); Q_UNUSED(bottomRight); Q_UNUSED(roles);

@@ -115,7 +115,7 @@ public:
 private:
     //! \copydoc navigable
     bool            _navigable{true};
-signals:
+Q_SIGNALS:
     //! \sa navigable
     void            navigableChanged();
 
@@ -190,7 +190,7 @@ public:
 private:
     //! \copydoc autoFitMode
     AutoFitMode _autoFitMode{ NoAutoFit };
-signals:
+Q_SIGNALS:
     //! \sa autoFitMode
     void        autoFitModeChanged( );
 private:
@@ -206,11 +206,11 @@ public:
     //! \sa zoomIncrement
     qreal       getZoomIncrement( ) const { return _zoomIncrement; }
     //! \sa zoomIncrement
-    void        setZoomIncrement( qreal zoomIncrement ) { _zoomIncrement = zoomIncrement; emit zoomIncrementChanged(); }
+    void        setZoomIncrement( qreal zoomIncrement ) { _zoomIncrement = zoomIncrement; Q_EMIT zoomIncrementChanged(); }
 private:
     //! \copydoc zoomIncrement
     qreal       _zoomIncrement{0.05 };
-signals:
+Q_SIGNALS:
     //! \sa zoomIncrement
     void        zoomIncrementChanged( );
 
@@ -237,7 +237,7 @@ public:
 private:
     //! \copydoc zoom
     qreal       _zoom{ 1.0 };
-signals:
+Q_SIGNALS:
     //! \sa zoom
     void        zoomChanged( );
 
@@ -256,7 +256,7 @@ public:
 private:
     //! \copydoc zoomOrigin
     QQuickItem::TransformOrigin _zoomOrigin{ QQuickItem::Center };
-signals:
+Q_SIGNALS:
     //! \sa zoomOrigin
     void        zoomOriginChanged( );
 
@@ -270,7 +270,7 @@ public:
 private:
     //! \copydoc zoomMax
     qreal       _zoomMax{ -1.0 };
-signals:
+Q_SIGNALS:
     //! \sa zoomMax
     void        zoomMaxChanged( );
 
@@ -284,11 +284,11 @@ public:
 private:
     //! \copydoc zoomMin
     qreal       _zoomMin{ 0.1 };
-signals:
+Q_SIGNALS:
     //! \sa zoomMin
     void        zoomMinChanged( );
 
-signals:
+Q_SIGNALS:
     //! Emitted whenever the mouse is clicked in the container.
     void    clicked( QVariant pos );
 
@@ -316,7 +316,7 @@ public:
 private:
     //! \copydoc dragActive
     bool        _dragActive{ false };
-signals:
+Q_SIGNALS:
     //! \copydoc dragActive
     void        dragActiveChanged( );
 
@@ -351,7 +351,7 @@ private:
     void                updateGrid() noexcept;
     //! \copydoc grid
     QPointer<qan::Grid> _grid;
-signals:
+Q_SIGNALS:
     //! \copydoc grid
     void                gridChanged( );
     //@}

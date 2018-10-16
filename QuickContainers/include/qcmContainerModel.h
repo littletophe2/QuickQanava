@@ -203,7 +203,7 @@ protected:
     QString     getItemDisplayRole( ) const { return _displayRoleProperty; }
 private:
     QString     _displayRoleProperty{QStringLiteral("label")};
-protected slots:
+protected Q_SLOTS:
     void    itemDisplayPropertyChanged() {
         QObject* qItem = sender();
         if ( qItem == nullptr )
@@ -212,7 +212,7 @@ protected slots:
         if ( qItemIndex >= 0 ) {
             QModelIndex itemIndex{ index( qItemIndex ) };
             if ( itemIndex.isValid( ) )
-                emit dataChanged( itemIndex, itemIndex );
+                Q_EMIT dataChanged( itemIndex, itemIndex );
         } else
             disconnect( qItem,  nullptr,
                         this,   nullptr );
@@ -246,8 +246,8 @@ public:
     Q_INVOKABLE int getLength() const noexcept { return rowCount(QModelIndex{}); }
 protected:
     //! Shortcut to emit lengthChanged() signal.
-    inline void     emitLengthChanged() noexcept { emit lengthChanged(); }
-signals:
+    inline void     emitLengthChanged() noexcept { Q_EMIT lengthChanged(); }
+Q_SIGNALS:
     //! \sa length
     void            lengthChanged();
 

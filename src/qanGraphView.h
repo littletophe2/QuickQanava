@@ -72,7 +72,7 @@ public:
     inline qan::Graph*      getGraph( ) const noexcept { return _graph.data(); }
 private:
     QPointer<qan::Graph>    _graph{ nullptr };
-signals:
+Q_SIGNALS:
     void                    graphChanged( );
 
 protected:
@@ -80,7 +80,7 @@ protected:
     virtual void    navigableClicked(QPointF pos) override;
     virtual void    navigableRightClicked(QPointF pos) override;
 
-signals:
+Q_SIGNALS:
     void            connectorChanged();
 
     void            rightClicked(QPointF pos);

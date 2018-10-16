@@ -82,7 +82,7 @@ public:
     //! \copydoc getGraph()
     auto    getGraph() noexcept -> qan::Graph*;
     auto    setGraph(qan::Graph*) noexcept -> void;
-signals:
+Q_SIGNALS:
     void    graphChanged();
 private:
     QPointer<qan::Graph> _graph;
@@ -97,7 +97,7 @@ public:
     void                    setSourceItem( qan::NodeItem* source );
 private:
     QPointer<qan::NodeItem> _sourceItem;
-signals:
+Q_SIGNALS:
     void                    sourceItemChanged( );
 
 public:
@@ -106,7 +106,7 @@ public:
     void                    setDestinationItem( qan::NodeItem* destination );
 private:
     QPointer<qan::NodeItem> _destinationItem;
-signals:
+Q_SIGNALS:
     void                    destinationItemChanged( );
 
 protected:
@@ -126,7 +126,7 @@ public:
     Q_PROPERTY( bool hidden READ getHidden() NOTIFY hiddenChanged FINAL )
     inline bool getHidden() const noexcept { return _hidden; }
     void        setHidden(bool hidden) noexcept;
-signals:
+Q_SIGNALS:
     void        hiddenChanged();
 private:
     bool        _hidden{false};
@@ -137,7 +137,7 @@ public:
     inline qreal    getArrowSize() const noexcept { return _arrowSize; }
 protected:
     qreal           _arrowSize = 4.0;
-signals:
+Q_SIGNALS:
     void            arrowSizeChanged();
 
 public:
@@ -152,7 +152,7 @@ public:
 private:
     //! \copydoc srcShape
     ArrowShape          _srcShape{ArrowShape::None};
-signals:
+Q_SIGNALS:
     void                srcShapeChanged();
 
 public:
@@ -166,10 +166,10 @@ public:
 private:
     //! \copydoc dstShape
     ArrowShape          _dstShape{ArrowShape::Arrow};
-signals:
+Q_SIGNALS:
     void                dstShapeChanged();
 
-public slots:
+public Q_SLOTS:
     //! Call updateItem() (override updateItem() to an empty method for invisible edges).
     virtual void        updateItemSlot( ) { updateItem(); }
 public:
@@ -291,7 +291,7 @@ public:
     //! Edge destination point in item CS (with accurate destination bounding shape intersection).
     Q_PROPERTY( QPointF p2 READ getP2() NOTIFY lineGeometryChanged FINAL )
     inline  auto    getP2() const noexcept -> const QPointF& { return _p2; }
-signals:
+Q_SIGNALS:
     void            lineGeometryChanged();
 protected:
     QPointF         _p1;
@@ -313,7 +313,7 @@ public:
     Q_PROPERTY( QPointF c2 READ getC2() NOTIFY controlPointsChanged FINAL )
     //! \copydoc c2
     inline  auto    getC2() const noexcept -> const QPointF& { return _c2; }
-signals:
+Q_SIGNALS:
     //! \copydoc c1
     void            controlPointsChanged();
 private:
@@ -338,7 +338,7 @@ public:
 private:
     //! \copydoc dstAngle
     qreal           _dstAngle{0.};
-signals:
+Q_SIGNALS:
     //! \copydoc dstAngle
     void            dstAngleChanged();
 
@@ -362,7 +362,7 @@ public:
 private:
     //! \copydoc dstA1
     QPointF         _dstA1, _dstA2, _dstA3;
-signals:
+Q_SIGNALS:
     void            dstArrowGeometryChanged();
 
 public:
@@ -373,7 +373,7 @@ public:
 private:
     //! \copydoc srcAngle
     qreal           _srcAngle{0.};
-signals:
+Q_SIGNALS:
     //! \copydoc srcAngle
     void            srcAngleChanged();
 
@@ -397,7 +397,7 @@ public:
 private:
     //! \copydoc srcA1
     QPointF         _srcA1, _srcA2, _srcA3;
-signals:
+Q_SIGNALS:
     void            srcArrowGeometryChanged();
     //@}
     //-------------------------------------------------------------------------
@@ -407,7 +407,7 @@ signals:
 protected:
     virtual void    mouseDoubleClickEvent( QMouseEvent* event ) override;
     virtual void    mousePressEvent( QMouseEvent* event ) override;
-signals:
+Q_SIGNALS:
     void            edgeClicked( qan::EdgeItem* edge, QPointF pos );
     void            edgeRightClicked( qan::EdgeItem* edge, QPointF pos );
     void            edgeDoubleClicked( qan::EdgeItem* edge, QPointF pos );
@@ -421,11 +421,11 @@ public:
     //! Get edge label position.
     QPointF		getLabelPos( ) const { return _labelPos; }
     //! Set edge label position.
-    void		setLabelPos( QPointF labelPos ) { _labelPos = labelPos; emit labelPosChanged(); }
+    void		setLabelPos( QPointF labelPos ) { _labelPos = labelPos; Q_EMIT labelPosChanged(); }
 protected:
     //! \sa labelPos
     QPointF     _labelPos;
-signals:
+Q_SIGNALS:
     //! \sa labelPos
     void        labelPosChanged( );
     //@}
@@ -440,9 +440,9 @@ public:
     qan::EdgeStyle* getStyle() const noexcept { return _style.data(); }
 private:
     QPointer<qan::EdgeStyle>    _style{nullptr};
-signals:
+Q_SIGNALS:
     void            styleChanged();
-private slots:
+private Q_SLOTS:
     //! Called when the style associed to this edge is destroyed.
     void            styleDestroyed( QObject* style );
 
@@ -463,11 +463,11 @@ public:
      * Setting this property to false may lead to a significant performance improvement if DropNode support is not needed.
      */
     Q_PROPERTY( bool acceptDrops READ getAcceptDrops WRITE setAcceptDrops NOTIFY acceptDropsChanged FINAL )
-    void             setAcceptDrops( bool acceptDrops ) { _acceptDrops = acceptDrops; setFlag( QQuickItem::ItemAcceptsDrops, acceptDrops ); emit acceptDropsChanged( ); }
+    void             setAcceptDrops( bool acceptDrops ) { _acceptDrops = acceptDrops; setFlag( QQuickItem::ItemAcceptsDrops, acceptDrops ); Q_EMIT acceptDropsChanged( ); }
     bool             getAcceptDrops( ) { return _acceptDrops; }
 private:
     bool            _acceptDrops{true};
-signals:
+Q_SIGNALS:
     void            acceptDropsChanged( );
 
 protected:

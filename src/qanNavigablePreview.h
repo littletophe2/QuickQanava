@@ -74,11 +74,11 @@ public:
 private:
     //! \copydoc source
     QPointer<qan::Navigable>    _source;
-signals:
+Q_SIGNALS:
     //! \copydoc source
     void                        sourceChanged();
 
-signals:
+Q_SIGNALS:
     /*! \brief Emitted whenever the preview visible window position or size change.
      *
      * \warning \c visibleWindowRect is scaled to (0,1) according to original navigable

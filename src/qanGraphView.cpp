@@ -90,7 +90,7 @@ void    GraphView::setGraph( qan::Graph* graph )
                  this,   &qan::GraphView::groupRightClicked );
         connect( _graph, &qan::Graph::groupDoubleClicked,
                  this,   &qan::GraphView::groupDoubleClicked );
-        emit graphChanged();
+        Q_EMIT graphChanged();
     }
 }
 
@@ -101,7 +101,7 @@ void    GraphView::navigableClicked(QPointF pos)
         _graph->clearSelection();
 }
 
-void    GraphView::navigableRightClicked(QPointF pos) { emit    rightClicked(pos); }
+void    GraphView::navigableRightClicked(QPointF pos) { Q_EMIT    rightClicked(pos); }
 //-----------------------------------------------------------------------------
 
 } // ::qan

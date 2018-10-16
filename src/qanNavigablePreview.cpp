@@ -53,7 +53,7 @@ void    NavigablePreview::setSource( qan::Navigable* source ) noexcept
 {
     if ( source != _source ) {
         _source = source;
-        emit sourceChanged();
+        Q_EMIT sourceChanged();
     }
 }
 //-----------------------------------------------------------------------------

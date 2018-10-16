@@ -80,7 +80,7 @@ auto    EdgeItem::getGraph() noexcept -> qan::Graph* {
     return _edge ? _edge->getGraph() : nullptr;
 }
 auto    EdgeItem::setGraph(qan::Graph* graph) noexcept -> void {
-    _graph = graph; emit graphChanged();
+    _graph = graph; Q_EMIT graphChanged();
 }
 //-----------------------------------------------------------------------------
 
@@ -121,7 +121,7 @@ auto    EdgeItem::setSourceItem( qan::NodeItem* source ) -> void
         connect( source, srcWidth.notifySignal(),   this, updateItemSlot );
         connect( source, srcHeight.notifySignal(),  this, updateItemSlot );
         _sourceItem = source;
-        emit sourceItemChanged();
+        Q_EMIT sourceItemChanged();
         if ( source->z() < z() )
             setZ( source->z() - 0.5 );
         updateItem();
@@ -132,7 +132,7 @@ auto    EdgeItem::setDestinationItem( qan::NodeItem* destination ) -> void
 {
     configureDestinationItem( destination );
     _destinationItem = destination;
-    emit destinationItemChanged();
+    Q_EMIT destinationItemChanged();
     updateItem();
 }
 
@@ -184,7 +184,7 @@ void    EdgeItem::setHidden(bool hidden) noexcept
 {
     if ( hidden != _hidden ) {
         _hidden = hidden;
-        emit hiddenChanged();
+        Q_EMIT hiddenChanged();
     }
 }
 
@@ -192,7 +192,7 @@ void    EdgeItem::setArrowSize( qreal arrowSize ) noexcept
 {
     if ( !qFuzzyCompare(1. + arrowSize, 1. + _arrowSize ) ) {
         _arrowSize = arrowSize;
-        emit arrowSizeChanged();
+        Q_EMIT arrowSizeChanged();
         updateItem();
     }
 }
@@ -201,7 +201,7 @@ auto    EdgeItem::setSrcShape(ArrowShape srcShape) noexcept -> void
 {
     if ( _srcShape != srcShape ) {
         _srcShape = srcShape;
-        emit srcShapeChanged();
+        Q_EMIT srcShapeChanged();
         updateItem();
     }
 }
@@ -210,7 +210,7 @@ auto    EdgeItem::setDstShape(ArrowShape dstShape) noexcept -> void
 {
     if ( _dstShape != dstShape ) {
         _dstShape = dstShape;
-        emit dstShapeChanged();
+        Q_EMIT dstShapeChanged();
         updateItem();
     }
 }
@@ -901,24 +901,24 @@ void    EdgeItem::applyGeometry(const GeometryCache& cache) noexcept
 
         _p1 = mapFromItem(graphContainerItem, cache.p1);
         _p2 = mapFromItem(graphContainerItem, cache.p2);
-        emit lineGeometryChanged();
+        Q_EMIT lineGeometryChanged();
 
         {   // Apply arrow geometry
             _dstAngle = cache.dstAngle;
-            emit dstAngleChanged(); // Note: Update dstAngle before arrow geometry.
+            Q_EMIT dstAngleChanged(); // Note: Update dstAngle before arrow geometry.
 
             _dstA1 = cache.dstA1;    // Arrow geometry is already expressed in edge "local CS"
             _dstA2 = cache.dstA2;
             _dstA3 = cache.dstA3;
-            emit dstArrowGeometryChanged();
+            Q_EMIT dstArrowGeometryChanged();
 
             _srcAngle = cache.srcAngle;
-            emit srcAngleChanged(); // Note: Update srcAngle before arrow geometry.
+            Q_EMIT srcAngleChanged(); // Note: Update srcAngle before arrow geometry.
 
             _srcA1 = cache.srcA1;    // Arrow geometry is already expressed in edge "local CS"
             _srcA2 = cache.srcA2;
             _srcA3 = cache.srcA3;
-            emit srcArrowGeometryChanged();
+            Q_EMIT srcArrowGeometryChanged();
         }
 
         // Apply control point geometry
@@ -926,11 +926,11 @@ void    EdgeItem::applyGeometry(const GeometryCache& cache) noexcept
             // For Curved edge: a cubic spline with C1 and C2
         if ( cache.lineType == qan::EdgeStyle::LineType::Ortho ) {
             _c1 = mapFromItem(graphContainerItem, cache.c1);
-            emit controlPointsChanged();
+            Q_EMIT controlPointsChanged();
         } else if ( cache.lineType == qan::EdgeStyle::LineType::Curved ) { // Apply control point geometry
             _c1 = mapFromItem(graphContainerItem, cache.c1);
             _c2 = mapFromItem(graphContainerItem, cache.c2);
-            emit controlPointsChanged();
+            Q_EMIT controlPointsChanged();
         }
 
         setZ(cache.z);
@@ -960,7 +960,7 @@ void    EdgeItem::setLine( QPoint src, QPoint dst )
 {
     _p1 = src;
     _p2 = dst;
-    emit lineGeometryChanged();
+    Q_EMIT lineGeometryChanged();
 }
 
 QPointF  EdgeItem::getLineIntersection( const QPointF& p1, const QPointF& p2,
@@ -1051,7 +1051,7 @@ void    EdgeItem::mouseDoubleClickEvent( QMouseEvent* event )
     const qreal d = distanceFromLine( event->localPos(), QLineF{_p1, _p2} );
     if ( d > -0.0001 && d < 5. &&
          event->button() == Qt::LeftButton ) {
-        emit edgeDoubleClicked( this, event->localPos() );
+        Q_EMIT edgeDoubleClicked( this, event->localPos() );
         event->accept();
     }
     else
@@ -1064,11 +1064,11 @@ void    EdgeItem::mousePressEvent( QMouseEvent* event )
     const qreal d = distanceFromLine( event->localPos( ), QLineF{_p1, _p2} );
     if ( d > -0.0001 && d < 5. ) {
         if ( event->button() == Qt::LeftButton ) {
-            emit edgeClicked( this, event->localPos() );
+            Q_EMIT edgeClicked( this, event->localPos() );
             event->accept();
         }
         else if ( event->button() == Qt::RightButton ) {
-            emit edgeRightClicked( this, event->localPos() );
+            Q_EMIT edgeRightClicked( this, event->localPos() );
             event->accept();
             return;
         }
@@ -1120,7 +1120,7 @@ void    EdgeItem::setStyle( EdgeStyle* style ) noexcept
             connect( _style,    &qan::EdgeStyle::dstShapeChanged,   // FIXME: Add intelligent updating
                      this,      &EdgeItem::styleModified );
         }
-        emit styleChanged( );
+        Q_EMIT styleChanged( );
     }
 }
 
@@ -1134,11 +1134,11 @@ void    EdgeItem::styleModified()
 {
     if ( getStyle() != nullptr ) {
         _arrowSize = getStyle()->getArrowSize();
-        emit arrowSizeChanged();
+        Q_EMIT arrowSizeChanged();
         _srcShape = getStyle()->getSrcShape();
-        emit srcShapeChanged();
+        Q_EMIT srcShapeChanged();
         _dstShape = getStyle()->getDstShape();
-        emit dstShapeChanged();
+        Q_EMIT dstShapeChanged();
         updateItem();
     }
 }
